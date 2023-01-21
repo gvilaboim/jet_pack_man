@@ -40,12 +40,17 @@ document.getElementById("play").addEventListener('click', (event) => {
     background.img = new Image();
     background.img.src ="./img/game_background_1.png";
 
-    // Generate Pipes
-    for (let i = 0; i < 10; i++) {
+    // Generate Pipes & Gallons
+    for (let i = 0; i < 4; i++) {
         pipesDown.push(new Pipe(Pipe.distance * i , i * Pipe.height))
+        
+        if(Math.random() * 10 > 7)
+        {
+         myGameArea.gallons.push(new Gallon((Pipe.distance * i) , (i * Pipe.height ) +500))
+        }
     }
 
-    updateTimer = setInterval(myGameArea.update, 1000 / myGameArea.speedgame)
+    updateTimer = setInterval(myGameArea.update, 1000 / 100)
 
     document.getElementById("main-menu").style.display = "none"
     document.getElementById("restart").disabled = false
@@ -88,7 +93,7 @@ document.addEventListener('keydown', ({ key }) => {
     if (myGameArea.isGamePaused) return
 
     switch (key) {
-        case "Spacebar": case "32": case "s":
+        case "Spacebar": case "32": case "s" : case " ":
             myGameArea.isSpaceKeyPressed = true;
             player.shootPressed = true;
 
@@ -114,7 +119,7 @@ document.addEventListener('keyup', ({ key }) => {
     if (myGameArea.isGamePaused) return
 
     switch (key) {
-        case "Space" : case "32" : case "s":
+        case "Space" : case "32" : case "s": case " ":
             myGameArea.isSpaceKeyPressed = false;
             player.shootPressed = false;
         break;

@@ -6,27 +6,36 @@ class Pipe extends Component {
     static height = 100
 
 
-    constructor(x,h) {
+    constructor(x,y) {
         
 
-        let offset = Math.floor(Math.random() * 10) ;
-        console.log(`OFFSET : ${offset}`)
+       let offset = Math.floor(Math.random() * 10) ;
+       // console.log(`OFFSET : ${offset}`)
         if(offset >5)
         {
-             offset = myGameArea.canvas.height/2 - h  + Math.random() * h;
+          
+             offset = myGameArea.canvas.height/2 - y  + Math.random() * y;
+
         }
         else {
-             offset = myGameArea.canvas.height/2 + h - + Math.random() * h;
+             offset = myGameArea.canvas.height/2 + y - + Math.random() * y;
         }
-        let y = offset;
-        x = x + Pipe.distance;
-        super(x, y, Pipe.width, Pipe.height)
-        
+        console.log(offset);
+
+            if(offset > myGameArea.canvas.height - 50)
+            {
+                offset = offset - myGameArea.canvas.height/2;
+            }else if (offset < 50)
+            {
+                offset = offset + myGameArea.canvas.height/2;
+            }
+        y = offset;
+
+       super(x, y, Pipe.width, Pipe.height)
        this.img = new Image();
        this.img.src = "./img/platform_ph.png";
 
-        console.log(`Pipe -> X: ${x}  Y: ${y} W: ${Pipe.width} H: ${Pipe.height}`);
-
+     //  new Gallon(x,y);
 
     }
     

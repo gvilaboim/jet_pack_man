@@ -32,7 +32,7 @@ document.getElementById("play").addEventListener('click', (event) => {
     const bulletController = new BulletController(myGameArea.context);
 
     // Create the Player
-    player = new Player(50,0,120,90,bulletController)
+    player = new Player( myGameArea.canvas.width/2,0,120,90,bulletController)
     player.sprite();
     myGameArea.components.push(player)
 
@@ -43,11 +43,7 @@ document.getElementById("play").addEventListener('click', (event) => {
     // Generate Pipes & Gallons
     for (let i = 0; i < 4; i++) {
         pipesDown.push(new Pipe(Pipe.distance * i , i * Pipe.height))
-        
-        if(Math.random() * 10 > 7)
-        {
-         myGameArea.gallons.push(new Gallon((Pipe.distance * i) , (i * Pipe.height ) +500))
-        }
+        myGameArea.gallons.push(new Gallon((Pipe.distance * i + Gallon.distance) , (i * Pipe.height ) +500))
     }
 
     updateTimer = setInterval(myGameArea.update, 1000 / 100)

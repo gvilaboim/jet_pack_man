@@ -73,7 +73,6 @@ class Player extends Component {
         }
     }
     }
-  //  this.bullet.src = "./img/gun_flash.png";
   
     
 }
@@ -117,7 +116,7 @@ class Player extends Component {
 
     moveLeft() {
         this.choose = 0;
-        this.x -= this.xSpeed*2;
+        this.x -= this.xSpeed ;
         this.frame--;
         if( this.frame<=0)
         {
@@ -137,7 +136,7 @@ class Player extends Component {
 
     moveRight() {
             this.choose = 0;
-            this.x += this.xSpeed 
+            this.x += this.xSpeed +1
             this.frame++;
             if( this.frame>13)
             {

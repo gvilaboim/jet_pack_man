@@ -8,8 +8,7 @@ class Gallon extends Component {
     constructor(x,y) {
         super(x, y, Gallon.width, Gallon.height)
         this.pickUp = true;
-        this.img = new Image();
-        this.img.src = "./img/gas-can.png";
+      
         console.log("new Gallon")
 
         let offset = Math.floor(Math.random() * 10) ;
@@ -32,7 +31,10 @@ class Gallon extends Component {
                  offset = offset + myGameArea.canvas.height/2;
              }
          this.y = offset;
-         
+         this.x = x;
+
+         this.img = new Image();
+         this.img.src = "./img/gas-can.png";
          console.log("Construtor Y : " + y);
 
 

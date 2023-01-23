@@ -40,4 +40,5 @@
   isBulletOffScreen(bullet) {
     return bullet.y <= -bullet.height;
   }
+  
 }

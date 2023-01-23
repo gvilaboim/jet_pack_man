@@ -36,12 +36,13 @@ class Bullet {
 
   collideWith(sprite) {
     if (
-      this.x < sprite.x + sprite.width &&
+      this.x < sprite.x + sprite.w &&
       this.x + this.width > sprite.x &&
-      this.y < sprite.y + sprite.height &&
+      this.y < sprite.y + sprite.h &&
       this.y + this.height > sprite.y
     ) {
-      sprite.takeDamage(this.damage);
+     // sprite.takeDamage(this.damage);
+      console.log("ATINGIDOOOOOOOOOO")
       return true;
     }
     return false;

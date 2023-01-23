@@ -10,6 +10,7 @@ const myGameArea = {
     speedgame : 100,
     gamespeed : 1,
     gallons : [],
+    monsters : [],
     isSpaceKeyPressed : false,
     generateCanvas: function () {
         this.canvas.width = window.innerWidth -50;
@@ -62,20 +63,21 @@ const myGameArea = {
             {
                 let newX = myGameArea.gallons[myGameArea.gallons.length - 1].x + Gallon.distance;
                 let newy = myGameArea.gallons[myGameArea.gallons.length - 1].y + Gallon.height;
-                console.log(`Gallon X : ${newX} |Y:${newy}`)
+             //   console.log(`Gallon X : ${newX} |Y:${newy}`)
 
                 myGameArea.gallons.push(new Gallon(newX,newy))
                 myGameArea.gallons.shift()
             }
         }
+        //enemys 
+        
 
 
 
         // it's not GameOver - render the game
         if (!myGameArea.isGameOver) {
             player.points();
-
-              //Games OVER
+            //Games OVER
               if(player.y > ctx.canvas.height || player.x < 0 )
               {
                 myGameArea.isGameOver = true;
@@ -95,9 +97,17 @@ const myGameArea = {
             // Render the Up Pipes, check for collisions and check for out of bounds
             // Render the Down Pipes
             pipesDown.forEach(pipe => {
+
+
+                if(player.bulletController.collideWith(pipe) ) 
+                {
+
+                    player.bulletController.bullets.pop();
+                }
+
                 if (pipe.checkCollision(player)) {
                     if (player.ySpeed <= 0) {
-                        console.log("Plataforma cima")
+                      //  console.log("Plataforma cima")
                         player.y = pipe.y - player.h
                         player.x -= myGameArea.gamespeed;
                         player.xSpeed = 2
@@ -107,7 +117,7 @@ const myGameArea = {
                     }
                     else if (player.ySpeed > 0 && player.y + player.h > pipe.y + pipe.h ) {
                         player.y = pipe.y + pipe.h
-                        console.log("Plataforma baixo")
+                      //  console.log("Plataforma baixo")
                         player.isOnPlatform = true
                         player.ySpeed = 0
                     }
@@ -117,14 +127,18 @@ const myGameArea = {
                 }
 
                 pipe.x -= myGameArea.gamespeed;
+                
                 pipe.render()
             })
+
+
+
 
             myGameArea.gallons.forEach((gallon , index )=> {
 
                 if (player.checkCollision(gallon) &&  gallon.pickUp) {
                     
-                    console.log(`Index Fuel -> ${index}`);
+                  //  console.log(`Index Fuel -> ${index}`);
                     player.fuel.value = 100;
                     player.fuel.color= "rgb(0, 255, 0)";
                     gallon.img.src = "";
@@ -136,7 +150,40 @@ const myGameArea = {
                
             })
 
+           console.log("TAMANHO MONSTERS" + myGameArea.monsters.length)
+            if(myGameArea.monsters.length <= 0)
+            {
+                console.log("Monster Cordenadas : "+ pipesDown[3].x + "" + pipesDown[3].y  )
+                myGameArea.monsters.push(new Monster(pipesDown[3].x  ,pipesDown[3].y -80,100,80));
+                console.log("SPAWN MONSTERRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+                console.log(  myGameArea.monsters[0]);
+                myGameArea.monsters[0].sprite();
+            }
+            myGameArea.monsters[0].render();
+            myGameArea.monsters[0].x -= myGameArea.gamespeed;
 
+            if(myGameArea.monsters[0].x <= 0)
+            {
+                myGameArea.monsters.pop();
+            }
+
+            if(player.bulletController.collideWith(myGameArea.monsters[0]) && myGameArea.monsters[0].isAlive)
+            {
+                if(myGameArea.monsters[0].health > 0)
+                {
+                    myGameArea.monsters[0].health -= player.damage;
+
+                }
+                if(myGameArea.monsters[0].health <= 0 && myGameArea.monsters[0].isAlive)
+                {   
+                    console.warn("MONSTRO DEAD");
+                    myGameArea.monsters[0].choose = 2;
+                    setTimeout(() => {
+                        myGameArea.monsters.pop();
+                    }, "500")
+                }
+              
+            }
 
 
   // update the player's vertical speed
@@ -175,7 +222,7 @@ const myGameArea = {
                    myGameArea.speedgame += 200;
                    myGameArea.growspeed += 1;
                    myGameArea.gamespeed =  myGameArea.gamespeed + 0.1;
-                   console.log("Grow: " + myGameArea.growspeed + "SpeedGame:" +  myGameArea.gamespeed)
+                  // console.log("Grow: " + myGameArea.growspeed + "SpeedGame:" +  myGameArea.gamespeed)
                 }
 
             

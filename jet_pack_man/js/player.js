@@ -9,6 +9,8 @@ class Player extends Component {
         this.shoot = [];
         this.bullet = new Image();
         this.img = [ this.run , this.fly ,  this.stopped , this.shoot];
+        //this.img = [ ];
+        this.damage = 20;
         this.bullets = 0;
         this.bspeed = 3;
         this.bulletController = bulletController;
@@ -32,6 +34,23 @@ class Player extends Component {
     }
 
     sprite() {
+        /*  //Stoped == 0
+              this.img[0] = new Image();
+              this.img[0].src = "img/jet_pack_sprite/stopped.png"
+              // Running ==1
+              this.img[1] = new Image();
+              this.img[1].src = "img/jet_pack_sprite/standing_run.png"
+             // Flying  == 2
+             this.img[2] = new Image();
+             this.img[2].src = "img/jet_pack_sprite/flying.png"
+             // Flying Shooting == 3
+             this.img[3] = new Image();
+             this.img[3].src = "img/jet_pack_sprite/flying_shoot.png"
+             // Flying Shooting == 4
+             this.img[4] = new Image();
+             this.img[4].src = "img/jet_pack_sprite/stopped_shoot.png"
+  */
+       
         for(let a  = 0 ;  a  < this.img.length ; a ++)
         {   let folder
             
@@ -73,7 +92,7 @@ class Player extends Component {
         }
     }
     }
-  
+
     
 }
 
@@ -91,10 +110,10 @@ class Player extends Component {
             this.frame++;
             const speed = 5;
             const delay = 7;
-            const damage = 1;
+            const damage = this.damage;
             const bulletX = this.x + this.w / 2;
             const bulletY = this.y;
-            console.log(  this.bulletController);
+         //   console.log( this.bulletController);
             this.bulletController.shoot(bulletX, bulletY, speed, damage, delay);
             
             if( this.frame>=5)

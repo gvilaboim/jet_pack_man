@@ -1,5 +1,6 @@
 let i = 0;
-
+let isStarted = false;
+let isPaused = false;
 window.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
     mainMenu();
@@ -17,17 +18,24 @@ function mainMenu()
       ctx.fillStyle = "gray";
     ctx.font = "40px Arial";
     ctx.textAlign = "center";
-    ctx.fillText("Jet Pack Man!", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2);
-    ctx.font = "20px Arial";
+    ctx.fillText("Jet Pack Man!", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 - 100);
+    ctx.fillStyle = 'rgba(175,238,238,0.2)';
+    ctx.fillRect(myGameArea.canvas.width / 2 -250, myGameArea.canvas.height / 2 -250,500,500);
     ctx.fillStyle = "white";
-    ctx.fillText("Press Play to Start! " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 30);
+    ctx.font = "italic 13pt Courier";
+    ctx.fillText('Press "Enter" to Start! ', myGameArea.canvas.width / 2, myGameArea.canvas.height / 2  -70);
+    ctx.fillText("Arrow Left -> Move Left " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 -20);
+    ctx.fillText("Arrow Right -> Move Right " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 +20);
+    ctx.fillText("Arrow Up -> Jump/Fly " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 60 );
+    ctx.fillText('Space Bar / "s" -> Shoot ' , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 100 );
+    ctx.fillText("Esc -> Game Pause/Resume " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 140 );
+
     };
     
 }
 
 
-document.getElementById("play").addEventListener('click', (event) => {
-    
+function start() {
     // Create the Background
     const bulletController = new BulletController(myGameArea.context);
 
@@ -51,7 +59,8 @@ document.getElementById("play").addEventListener('click', (event) => {
     document.getElementById("main-menu").style.display = "none"
     document.getElementById("restart").disabled = false
     document.getElementById("pause").disabled = false
-})
+    isStarted = true;
+}
 
 document.getElementById("restart").addEventListener('click', (event) => {
 
@@ -69,26 +78,48 @@ document.getElementById("restart-game-over").addEventListener('click', (event) =
 
 })
 
-// Create a Pause / Unpause function (you can also create your HTML for it)
-document.getElementById("pause").addEventListener('click', (event) => {
-
-    pauseGame()
-
-})
 
 
 // Create a Pause / Unpause function (you can also create your HTML for it)
-document.getElementById("resume").addEventListener('click', (event) => {
 
-    resumeGame()
 
-})
+// Create a Pause / Unpause function (you can also create your HTML for it)
 
 document.addEventListener('keydown', ({ key }) => {
 
-    if (myGameArea.isGamePaused) return
-
+    if (myGameArea.isGamePaused) 
+    {
+        switch (key) {
+            case "Escape":
+                resumeGame()
+                console.log("Click")     
+            break; 
+         default: break;
+        }
+        return
+    }
+  
     switch (key) {
+        case "Escape":
+             console.log("Click2")
+             if(isStarted){
+                pauseGame()
+             }
+        break;
+        case "Enter":
+            if(!isStarted)
+            {
+                start();
+            }
+            else if (isStarted &&  myGameArea.isGameOver)
+            {
+                restart()
+                myGameArea.isGameOver = false
+                document.getElementById("game-over").style.display = "none"
+            }
+
+
+        break;
         case "Spacebar": case "32": case "s" : case " ":
             myGameArea.isSpaceKeyPressed = true;
             player.shootPressed = true;
@@ -106,6 +137,7 @@ document.addEventListener('keydown', ({ key }) => {
             break;
 
         default: 
+        console.log(key)
             return; // Quit when this doesn't handle the key event.
     }
 })
@@ -115,6 +147,9 @@ document.addEventListener('keyup', ({ key }) => {
     if (myGameArea.isGamePaused) return
 
     switch (key) {
+        case "Escape":
+            console.log("Click 3")
+            break;
         case "Space" : case "32" : case "s": case " ":
             myGameArea.isSpaceKeyPressed = false;
             player.shootPressed = false;
@@ -129,7 +164,7 @@ document.addEventListener('keyup', ({ key }) => {
             myGameArea.isRightKeyPressed = false
             break;
         default:
-
+            console.log(key);
             return; // Quit when this doesn't handle the key event.
     }
 })

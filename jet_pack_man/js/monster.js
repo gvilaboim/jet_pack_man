@@ -1,7 +1,7 @@
 
 class Monster extends Component {
          
-    constructor(x,y,w, h ) {
+    constructor(x,y,w, h ,bulletController) {
         super(x, y, w , h)
         this.run = [];
         this.atack = [];
@@ -13,6 +13,14 @@ class Monster extends Component {
         this.choose = 0;
         this.isAlive = true;
         this.health = 100;
+        this.spawnPoint = this.x;
+        this.xSpeed = 1
+        this.walks= 0;
+        this.bulletController = bulletController;
+        this.target = false;
+        this.damage =10;
+        this.bulletSpeed = 5;
+
     }
 
     sprite() {
@@ -71,10 +79,38 @@ class Monster extends Component {
         ctx.fillRect(this.x, this.y -20, this.health,4);
         ctx.drawImage(this.img[this.choose][this.frame], this.x, this.y, this.w, this.h)
         this.frame++;
+        if(this.target)
+        {
+            this.shooting();
+
+        }
+
     }
     if(this.choose == 2 && this.frame > 32)    {
         this.isAlive = false;    
     } 
    
 }
+
+    moveRight()
+{
+      this.x += this.xSpeed;
+      this.walks++;
+}
+
+moveLeft()
+{
+      this.x -= this.xSpeed ;
+      this.walks++;
+}
+
+shooting()
+{       const speed  = this.bulletSpeed ;
+        const delay = 200;
+        const damage = this.damage;
+        const bulletX = this.x + this.w / 2;
+        const bulletY = this.y;
+        this.bulletController.shoot(bulletX, bulletY, speed, damage, delay);
+}
+
 }

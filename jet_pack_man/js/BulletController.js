@@ -8,6 +8,7 @@
   }
 
   shoot(x, y, speed, damage, delay) {
+
     if (this.timerTillNextBullet <= 0) {
       this.bullets.push(new Bullet(x, y, speed, damage));
 
@@ -18,6 +19,7 @@
   }
 
   draw(ctx) {
+
     this.bullets.forEach((bullet) => {
       if (this.isBulletOffScreen(bullet)) {
         const index = this.bullets.indexOf(bullet);
@@ -26,6 +28,18 @@
       bullet.draw(ctx);
     });
   }
+
+  drawMonster(ctx) {
+
+    this.bullets.forEach((bullet) => {
+      if (this.isBulletOffScreen(bullet)) {
+        const index = this.bullets.indexOf(bullet);
+        this.bullets.splice(index, 1);
+      }
+      bullet.drawMonster(ctx);
+    });
+  }
+
 
   collideWith(sprite) {
     return this.bullets.some((bullet) => {

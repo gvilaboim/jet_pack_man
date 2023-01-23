@@ -39,7 +39,9 @@ const myGameArea = {
        ctx.fillStyle = player.fuel.color;
        ctx.fillRect(7, 40, player.fuel.value, 10)
           
+       //player disparar
         player.bulletController.draw(ctx);
+
 
         if (background.x < -background.w) background.x = 0
 
@@ -71,6 +73,8 @@ const myGameArea = {
         }
         //enemys 
         
+        
+
 
 
 
@@ -98,7 +102,15 @@ const myGameArea = {
             // Render the Down Pipes
             pipesDown.forEach(pipe => {
 
+                if(myGameArea.monsters.length > 0)
+                {
 
+              
+                if(myGameArea.monsters[0].bulletController.collideWith(pipe))
+                {
+                    myGameArea.monsters[0].bulletController.bullets.pop();
+                }
+            }
                 if(player.bulletController.collideWith(pipe) ) 
                 {
 
@@ -150,17 +162,63 @@ const myGameArea = {
                
             })
 
-           console.log("TAMANHO MONSTERS" + myGameArea.monsters.length)
+
+
+
+            //monsters
+
+         
+
             if(myGameArea.monsters.length <= 0)
-            {
+            {    const bulletController = new BulletController(ctx);
                 console.log("Monster Cordenadas : "+ pipesDown[3].x + "" + pipesDown[3].y  )
-                myGameArea.monsters.push(new Monster(pipesDown[3].x  ,pipesDown[3].y -80,100,80));
-                console.log("SPAWN MONSTERRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+                myGameArea.monsters.push(new Monster(pipesDown[3].x  ,pipesDown[3].y -80,100,80 ,bulletController ));
+                console.log("SPAWN MONSTERRR");
                 console.log(  myGameArea.monsters[0]);
                 myGameArea.monsters[0].sprite();
             }
             myGameArea.monsters[0].render();
             myGameArea.monsters[0].x -= myGameArea.gamespeed;
+            myGameArea.monsters[0].spawnPoint -= myGameArea.gamespeed;
+            myGameArea.monsters[0].spawnPoint -= myGameArea.gamespeed;
+          //  myGameArea.monsters[0].bulletSpeed  myGameArea.gamespeed;
+
+            if( player.y + player.w >= myGameArea.monsters[0].y  &&  player.y  <= myGameArea.monsters[0].y + 70)
+            {
+                myGameArea.monsters[0].target = true;
+            }
+            else if (player.y  + player.w  <= myGameArea.monsters[0].y  &&  player.y + player.w  >= myGameArea.monsters[0].y -70)
+            {
+                myGameArea.monsters[0].target = true;
+
+            }
+            else {
+                myGameArea.monsters[0].target = false;
+
+            }
+       
+
+            myGameArea.monsters[0].bulletController.drawMonster(ctx);
+
+
+
+
+           console.log(myGameArea.monsters[0].walks && myGameArea.monsters[0].isAlive)
+            if( myGameArea.monsters[0].walks <100)
+            {
+                myGameArea.monsters[0].moveRight();
+                
+            }
+            else if(myGameArea.monsters[0].walks >=100 && myGameArea.monsters[0].walks <200 && myGameArea.monsters[0].isAlive){
+
+                myGameArea.monsters[0].moveLeft();
+            }
+            else {
+                myGameArea.monsters[0].walks = 0;
+            }
+            
+
+
 
             if(myGameArea.monsters[0].x <= 0)
             {

@@ -7,6 +7,7 @@ const myGameArea = {
     isLeftKeyPressed: false,
     isRightKeyPressed: false,
     isUpKeyPressed : false,
+     shop : document.getElementById("shop"),
     speedgame : 100,
     gamespeed : 1,
     gallons : [],
@@ -94,6 +95,8 @@ const myGameArea = {
 
         // it's not GameOver - render the game
         if (!myGameArea.isGameOver) {
+            shop.style.zIndex = "0";
+
             player.points();
             //Games OVER
               if(player.y > ctx.canvas.height || player.x < 0 )
@@ -180,9 +183,7 @@ const myGameArea = {
 
 
 
-            //monsters
-
-         
+            //monsters         
 
             if(myGameArea.monsters.length <= 0)
             {    const bulletController = new BulletController(ctx);
@@ -196,6 +197,7 @@ const myGameArea = {
             myGameArea.monsters[0].x -= myGameArea.gamespeed;
             myGameArea.monsters[0].spawnPoint -= myGameArea.gamespeed;
             myGameArea.monsters[0].spawnPoint -= myGameArea.gamespeed;
+
           //  myGameArea.monsters[0].bulletSpeed  myGameArea.gamespeed;
 
             if( player.y + player.w >= myGameArea.monsters[0].y  &&  player.y  <= myGameArea.monsters[0].y + 70)
@@ -226,6 +228,7 @@ const myGameArea = {
             }
             else if(myGameArea.monsters[0].walks >=100 && myGameArea.monsters[0].walks <200 && myGameArea.monsters[0].isAlive){
 
+                
                 myGameArea.monsters[0].moveLeft();
             }
             else {
@@ -307,11 +310,21 @@ const myGameArea = {
 
        }
    }    
-                  background.x -= myGameArea.gamespeed;
+             background.x -= myGameArea.gamespeed;
+           //  player.xSpeed += myGameArea.gamespeed;
+
                 if(player.score >  myGameArea.speedgame) {
+                   
+                    
+                        myGameArea.monsters[0].bulletSpeed += 0.1;
+                    
+                        
                    myGameArea.speedgame += 200;
                    myGameArea.growspeed += 1;
                    myGameArea.gamespeed =  myGameArea.gamespeed + 0.1;
+                  
+                //   myGameArea.monsters[0].xSpeed += myGameArea.gamespeed;
+ 
                   // console.log("Grow: " + myGameArea.growspeed + "SpeedGame:" +  myGameArea.gamespeed)
                 }
 
@@ -319,11 +332,11 @@ const myGameArea = {
 
         }
         else {
-            let obj = [{
+            let obj = {
                 'name' : player.playerName,
                 'coins' : player.coins,
                 'score' : player.score
-            }]
+            }
             localStorage.setItem(player.playerName, JSON.stringify(obj));
 
             console.log("Game Over!")
@@ -344,12 +357,16 @@ const myGameArea = {
                 ctx.fillStyle = "Yellow";
                 ctx.fillText(player.coins + "$",  myGameArea.canvas.width / 2,myGameArea.canvas.height / 2 - 120);
                 ctx.fillStyle = 'rgba(200,200,200,0.2)';
-                ctx.fillRect(myGameArea.canvas.width / 2 -125, myGameArea.canvas.height / 2 -100 ,250,250);
-                ctx.font = "italic 13pt Courier";
+                ctx.fillRect(myGameArea.canvas.width / 2 -175, myGameArea.canvas.height / 2 -100 ,350,250);
+                ctx.font = " bold italic 19pt Courier";
                 ctx.fillStyle = "black";
                 ctx.fillText("High Score Board", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 -80 );
-                ctx.font = "20px Arial";
+               // ctx.font = "20px Arial";
+                ctx.fillStyle = "white";
+                ctx.font = "bold italic 20pt Courier";
+                ctx.fillText('Press "S" to Enter Shop Menu! ', myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2+ 200  );
 
+        
                 let top =  [];
                 // iterate localStorage
 for (var i = 0; i < localStorage.length; i++) {
@@ -357,22 +374,29 @@ for (var i = 0; i < localStorage.length; i++) {
     var key = localStorage.key(i);
     // use key name to retrieve the corresponding value
     var value = localStorage.getItem(key);
-    //console.log(`key : ` + key + 'value :' + value);
-    //console.log(JSON.parse(value));
     top.push(JSON.parse(value));
   }
-    top.sort((a, b) => (a.score > b.score) ? 1: -1);
-    console.log( Object.values(top[0]))
-  //  ctx.fillStyle = "white";
-  //  ctx.font = "italic 13pt Courier";
-   // ctx.fillText('Name: '+top[0].key +' Score: ' +top[0].value , myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 -20 + (60 * i) );
+  //top.sort((a, b) => (a.score > b.score) ? 1: -1);
+  top.sort((a, b) => (b.score - a.score));
+  ctx.fillStyle = "white";
+   ctx.font = "bold italic 13pt Courier";
+   let n = 3;
+   if(localStorage.length>3)
+   {
+    n = 3;
+   }
+   else {
+    n = localStorage.length;
+   }
+    for(let i = 0;  i <n ; i ++)
+    {
+        ctx.fillText('Player: '+top[i].name +' Score: ' +top[i ].score , myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 -20 + (60 * i) );
+    }
 
-   //perguntar na aula o pq de nao conseguir ter o valor
-              
+  //   localStorage.clear();
         }
     },
    
 }
 
 myGameArea.generateCanvas()
-

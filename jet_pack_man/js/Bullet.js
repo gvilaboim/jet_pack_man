@@ -39,7 +39,7 @@ class Bullet {
   drawMonster(ctx) {
     ctx.fillStyle = this.color;
    // this.y -= this.speed;
-    this.x -=this.speed;
+    this.x -=this.speed + myGameArea.gamespeed;
     ctx.drawImage( this.imgMonster , this.x, this.y+5, this.MonsterWidth, this.MonsterHeight)
     //ctx.fillRect(this.x, this.y, this.MonsterWidth, this.MonsterHeight);
 

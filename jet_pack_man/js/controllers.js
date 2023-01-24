@@ -19,7 +19,6 @@ let restart = () => {
     player.choose= 0;
     player.score = 0;
     player.health = 100;
-
     player.fuel = {
         value:100,
         color: "rgb(0, 255, 0)"

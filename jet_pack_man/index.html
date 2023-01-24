@@ -6,30 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
+    <div  id="shop">
+        <div class="row">
+            <div class="block card">
+                <div id="pane">
+                    <div id="coiner" ></div>
+                 <h1> Jet Pack Man Shop</h1> <span id="coins"> Coins:</span>
+                </div>
+                <div id="pane">
+                    <div  id="coiner" class="two InsideContent"></div>
+                    <div id="menu-item" class="InsideContent">JetPack Level 1 <button onclick=""> Upgrade</button></div> 
+                </div>
+                <div id="pane">
+                    <div  id="coiner" class="three InsideContent"></div>
+                    <div id="menu-item" class="InsideContent">Player health 1 <button onclick=""> Upgrade</button></div> 
+                </div>
+                <div id="pane">
+                <button onclick="mainMenu()"> Play Again</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
     <div id="main-menu">
     </div>
-    
-    <div id="pause-game">
-        <h1>
-            Game Paused
-        </h1>
+  
 
-        <button id="resume"> Resume </button>
-    </div>
 
-    <button disabled id="restart"> Restart </button>
-    <button disabled id="pause"> Pause </button>
-
-    <div id="game-over">
-        <h1>
-            Game Over
-        </h1>
-
-        <button id="restart-game-over"> Play Again </button>
-    </div>
 
     <script src="js/myGameArea.js"></script>
     <script src="js/component.js"></script>

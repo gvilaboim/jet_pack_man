@@ -7,15 +7,19 @@ window.addEventListener('DOMContentLoaded', (event) => {
 });
 
 function mainMenu()
-{
+
+{  let s = document.getElementById("shop")
+    document.body.style.backgroundImage = ``;
+    s.style.display="block"
+    s.style.zIndex = "1";
     const ctx = myGameArea.context;
+    ctx.canvas.hidden = false;
     console.log(ctx);
     backgroundImg = new Image();
     backgroundImg.src = "./img/game_background_1.png";
-  
     backgroundImg.onload = () => {
-      ctx.drawImage( backgroundImg, 0, 0, myGameArea.canvas.width, myGameArea.canvas.height);
-      ctx.fillStyle = "gray";
+    ctx.drawImage( backgroundImg, 0, 0, myGameArea.canvas.width, myGameArea.canvas.height);
+    ctx.fillStyle = "gray";
     ctx.font = "40px Arial";
     ctx.textAlign = "center";
     ctx.fillText("Jet Pack Man!", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 - 100);
@@ -27,7 +31,7 @@ function mainMenu()
     ctx.fillText("Arrow Left -> Move Left " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 -20);
     ctx.fillText("Arrow Right -> Move Right " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 +20);
     ctx.fillText("Arrow Up -> Jump/Fly " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 60 );
-    ctx.fillText('Space Bar / "s" -> Shoot ' , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 100 );
+    ctx.fillText('Space Bar  -> Shoot ' , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 100 );
     ctx.fillText("Esc -> Game Pause/Resume " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 140 );
     
 }
@@ -36,7 +40,6 @@ function mainMenu()
 function start() {
     // Create the Background
     let username = prompt("Choose a name to Play Jet Pack Man!: ")
-
     const bulletController = new BulletController(myGameArea.context);
 
     // Create the Player
@@ -56,18 +59,9 @@ function start() {
 
     updateTimer = setInterval(myGameArea.update, 1000 / 100)
     isStarted = true;
-   // localStorage.setItem(username, player.coins , player.score);
 
 }
 
-
-
-
-
-// Create a Pause / Unpause function (you can also create your HTML for it)
-
-
-// Create a Pause / Unpause function (you can also create your HTML for it)
 
 document.addEventListener('keydown', ({ key }) => {
 
@@ -90,6 +84,9 @@ document.addEventListener('keydown', ({ key }) => {
                 pauseGame()
              }
         break;
+        case "c":
+          localStorage.clear();
+        break;
         case "Enter":
             if(!isStarted)
             {
@@ -99,16 +96,36 @@ document.addEventListener('keydown', ({ key }) => {
             {
                 restart()
                 myGameArea.isGameOver = false
-                document.getElementById("game-over").style.display = "none"
             }
 
 
         break;
-        case "Spacebar": case "32": case "s" : case " ":
+        case "s":
+            if(myGameArea.isGameOver)
+            {
+               // myGameArea.ctx.remove();
+               const ctx = myGameArea.context;
+               ctx.canvas.hidden = true;
+               let s = document.getElementById("shop")
+               document.body.style.backgroundImage = `url('/img/game_background_1.png')`
+               console.log(player.playerName);
+               var key = localStorage.key(player.playerName);
+               console.log(key);
+               var value = window.localStorage.getItem(key);
+               let obj = JSON.parse(value);
+               console.log(obj)
+               document.getElementById("coins").innerText = "Coins: "+ obj.coins +"$" ;
+               s.style.display="block"
+               s.style.zIndex = "1";
+            }
+            break;
+
+        case "Spacebar": case "32" : case " ":
             myGameArea.isSpaceKeyPressed = true;
             player.shootPressed = true;
 
         break;
+       
         case "Up": case "ArrowUp":
             myGameArea.isUpKeyPressed = true;
             player.moveUp()

@@ -8,7 +8,6 @@ class Pipe extends Component {
 
     constructor(x,y) {
         
-       super(x, y, Pipe.width, Pipe.height)
   
 
         let offset = Math.floor(Math.random() * 10) ;
@@ -32,6 +31,7 @@ class Pipe extends Component {
                  offset = offset + myGameArea.canvas.height/2;
              }
          y = offset;
+         super(x, y, Pipe.width, Pipe.height)
 
          this.img = new Image();
          this.img.src = "./img/platform_ph.png";

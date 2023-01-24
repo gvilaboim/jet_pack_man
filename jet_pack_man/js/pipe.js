@@ -35,9 +35,6 @@ class Pipe extends Component {
 
          this.img = new Image();
          this.img.src = "./img/platform_ph.png";
-         this.img.onload = () => {
-    console.log("Loaded")
-          }
 
     }
     

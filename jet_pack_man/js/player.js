@@ -1,7 +1,7 @@
 class Player extends Component {
     static height = 0;
 
-    constructor(x, y, w, h ,bulletController) {
+    constructor(x, y, w, h ,bulletController,name) {
         super(x, y, w, h)
         this.fly = [];
         this.run = [];
@@ -9,7 +9,6 @@ class Player extends Component {
         this.shoot = [];
         this.bullet = new Image();
         this.img = [ this.run , this.fly ,  this.stopped , this.shoot];
-        //this.img = [ ];
         this.damage = 20;
         this.bullets = 0;
         this.bspeed = 3;
@@ -27,6 +26,15 @@ class Player extends Component {
         this.score = 0;
         this.getPoint = true;
         this.jump = false;
+        this.hp_bar = new Image();
+        this.hp_bar.src= "img/hp_bar.png"
+        this.gas = new Image();
+        this.gas.src = "./img/gas-can.png";
+        this.coin = new Image();
+        this.coin.src= "./img/coin.png";
+        this.playerName = name;
+        this.health = 100;
+        this.coins = 0;
         this.fuel = {
             value:100,
             color: "rgb(0, 255, 0)"
@@ -133,6 +141,8 @@ class Player extends Component {
         }
     }
 
+
+ 
     moveLeft() {
         this.choose = 0;
         this.x -= this.xSpeed ;
@@ -145,7 +155,8 @@ class Player extends Component {
         pipesDown.forEach(platform => {
             if (this.checkCollision(platform)) {
                 if (this.x < platform.x + platform.w) {
-                    this.x = platform.w + platform.x
+                    this.x = platform.w + platform.x - myGameArea.gamespeed
+
                 }
             }
         })
@@ -153,6 +164,8 @@ class Player extends Component {
           
     }
 
+    
+    
     moveRight() {
             this.choose = 0;
             this.x += this.xSpeed +1
@@ -165,7 +178,8 @@ class Player extends Component {
             pipesDown.forEach(platform => {
                 if (this.checkCollision(platform)) {
                     if (this.x > platform.x - this.w) {
-                            this.x = platform.x - this.w
+                            this.x = platform.x - this.w - myGameArea.gamespeed
+                            
                     }   }
 
             })
@@ -188,7 +202,7 @@ class Player extends Component {
                 this.fuel.color ="rgb(0, 255, 0)";
                 this.fuel.value =  this.fuel.value  -2;
             }
-            else if (this.fuel.value >= 30 && this.fuel.value <= 70) {
+            else if (this.fuel.value >= 50 && this.fuel.value <= 70) {
                 this.choose = 1;
                 this.frame++;
                 if( this.frame>13)
@@ -199,7 +213,7 @@ class Player extends Component {
             this.fuel.color = "rgb(100, 255, 0)";
             this.fuel.value =  this.fuel.value  -2;
         }
-            else if(this.fuel.value > 0 && this.fuel.value <= 30)
+            else if(this.fuel.value > 0 && this.fuel.value <= 50)
             {
                 this.choose = 1;
                 this.frame++;

@@ -9,39 +9,24 @@ body{
 #main-menu,
 #game-over,
 #pause-game{
-    text-align:center;
-    padding: auto;
-    margin: auto;
+
 }
 
 
 
 #resume{
-    padding: 10px;
-    margin: 10px;
+
 }
 
 #game-over, #pause-game{
-    display: none;
 }
 
 #restart{
-    position: absolute;
-    bottom: -50px;
-    left: 40%;
-    transform: translateX(-50%);
+
 }
 
 #pause{
-    position: absolute;
-    bottom: -50px;
-    left: 60%;
-    transform: translateX(-50%);
+ 
 }
 
 
-.cc{
-    text-align:center;
-     padding: auto;
-     margin: auto;
-}

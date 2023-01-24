@@ -19,6 +19,8 @@ class Monster extends Component {
         this.bulletController = bulletController;
         this.target = false;
         this.damage =10;
+        this.giveHealth =10;
+        this.coins = Math.floor(Math.random() * 10);
         this.bulletSpeed = 5;
 
     }

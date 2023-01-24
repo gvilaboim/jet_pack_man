@@ -29,18 +29,18 @@ function mainMenu()
     ctx.fillText("Arrow Up -> Jump/Fly " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 60 );
     ctx.fillText('Space Bar / "s" -> Shoot ' , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 100 );
     ctx.fillText("Esc -> Game Pause/Resume " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 140 );
-
-    };
     
 }
 
-
+}
 function start() {
     // Create the Background
+    let username = prompt("Choose a name to Play Jet Pack Man!: ")
+
     const bulletController = new BulletController(myGameArea.context);
 
     // Create the Player
-    player = new Player( myGameArea.canvas.width/2,0,120,90,bulletController)
+    player = new Player( myGameArea.canvas.width/2,0,120,90,bulletController,username)
     player.sprite();
     myGameArea.components.push(player)
 
@@ -55,28 +55,12 @@ function start() {
     }
 
     updateTimer = setInterval(myGameArea.update, 1000 / 100)
-
-    document.getElementById("main-menu").style.display = "none"
-    document.getElementById("restart").disabled = false
-    document.getElementById("pause").disabled = false
     isStarted = true;
+   // localStorage.setItem(username, player.coins , player.score);
+
 }
 
-document.getElementById("restart").addEventListener('click', (event) => {
 
-    restart()
-    myGameArea.isGameOver = false
-    document.getElementById("game-over").style.display = "none"
-
-})
-
-document.getElementById("restart-game-over").addEventListener('click', (event) => {
-
-    restart()
-    myGameArea.isGameOver = false
-    document.getElementById("game-over").style.display = "none"
-
-})
 
 
 

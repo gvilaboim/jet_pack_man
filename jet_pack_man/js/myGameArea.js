@@ -13,8 +13,8 @@ const myGameArea = {
     monsters : [],
     isSpaceKeyPressed : false,
     generateCanvas: function () {
-        this.canvas.width = window.innerWidth -50;
-        this.canvas.height =  window.innerHeight - 50;
+        this.canvas.width = window.innerWidth;
+        this.canvas.height =  window.innerHeight;
         this.canvas.className = "cc";
         this.context = this.canvas.getContext('2d');
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
@@ -30,15 +30,30 @@ const myGameArea = {
         ctx.drawImage(background.img, background.x + background.w, background.y, myGameArea.canvas.width, myGameArea.canvas.height)
 
         //render score
+
+        //player health
+       ctx.drawImage(player.hp_bar, 7, 10, 100,20)
+       ctx.fillStyle = "black";
+       ctx.fillRect(105, 13, player.health - 100 ,12)
+
+        //player gas
+        ctx.fillStyle = "black";
+        ctx.fillRect(10, 45, 100, 12)
+        ctx.fillStyle = player.fuel.color;
+        ctx.fillRect(10, 45, player.fuel.value, 12)
+        ctx.drawImage(player.gas, 5, 35, 25,25)
+
+        //player Score
+
         ctx.font = "20px Arial";
         ctx.fillStyle = "white";
-        ctx.fillText("Score: " + player.score, 50 , 30);
-        ctx.font = "20px Arial";
-        ctx.fillStyle = "white";
-       ctx.fillRect(7, 40, 100, 10)
-       ctx.fillStyle = player.fuel.color;
-       ctx.fillRect(7, 40, player.fuel.value, 10)
-          
+        ctx.fillText("Score: " + player.score, 60, myGameArea.canvas.height -10);
+       //player coins
+       ctx.drawImage(player.coin, 5, 70, 20,20)
+       ctx.font = "20px Arial";
+       ctx.fillStyle = "Yellow";
+       ctx.fillText(player.coins + "$", 45 ,88);
+
        //player disparar
         player.bulletController.draw(ctx);
 
@@ -74,7 +89,6 @@ const myGameArea = {
         //enemys 
         
         
-
 
 
 
@@ -118,7 +132,8 @@ const myGameArea = {
                 }
 
                 if (pipe.checkCollision(player)) {
-                    if (player.ySpeed <= 0) {
+                    //player.ySpeed <= 0
+                    if ( player.ySpeed <= 0 && player.y < pipe.y ) {
                       //  console.log("Plataforma cima")
                         player.y = pipe.y - player.h
                         player.x -= myGameArea.gamespeed;
@@ -225,6 +240,15 @@ const myGameArea = {
                 myGameArea.monsters.pop();
             }
 
+            if(myGameArea.monsters[0].bulletController.collideWith(player))
+            {
+                player.health -= myGameArea.monsters[0].damage;
+                if(player.health <=0)
+                {
+                    myGameArea.isGameOver = true;
+                }
+            }
+
             if(player.bulletController.collideWith(myGameArea.monsters[0]) && myGameArea.monsters[0].isAlive)
             {
                 if(myGameArea.monsters[0].health > 0)
@@ -236,7 +260,15 @@ const myGameArea = {
                 {   
                     console.warn("MONSTRO DEAD");
                     myGameArea.monsters[0].choose = 2;
+                    Math.floor(Math.random * 51)
+
                     setTimeout(() => {
+                        player.coins +=  myGameArea.monsters[0].coins;
+                        player.health +=  myGameArea.monsters[0].giveHealth;
+                        if( player.health >100)
+                        {
+                            player.health=100;
+                        }
                         myGameArea.monsters.pop();
                     }, "500")
                 }
@@ -287,23 +319,60 @@ const myGameArea = {
 
         }
         else {
-             
+            let obj = [{
+                'name' : player.playerName,
+                'coins' : player.coins,
+                'score' : player.score
+            }]
+            localStorage.setItem(player.playerName, JSON.stringify(obj));
+
             console.log("Game Over!")
            // ctx.clearRect(0, 0, myGameArea.canvas.width, myGameArea.canvas.height)
             // ctx.drawImage(background.img, background.x, background.y, myGameArea.canvas.width, myGameArea.canvas.height)
-                
                 ctx.drawImage(background.img, 0, 0, myGameArea.canvas.width, myGameArea.canvas.height)
+                ctx.fillStyle = 'rgba(175,238,238,0.2)';
+                ctx.fillRect(myGameArea.canvas.width / 2 -250, myGameArea.canvas.height / 2 -250,500,500);
+                ctx.fillStyle = "white";
                 ctx.fillStyle = "red";
                 ctx.font = "40px Arial";
                 ctx.textAlign = "center";
-                ctx.fillText("Game Over!", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2);
+                ctx.fillText("Game Over!", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 -200);
                 ctx.font = "20px Arial";
                 ctx.fillStyle = "white";
-                ctx.fillText("Your Final Score: " + player.score, myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 30);
-        
+                ctx.fillText("Your Final Score: " + player.score, myGameArea.canvas.width / 2,myGameArea.canvas.height / 2 - 150);
+                ctx.font = "20px Arial";
+                ctx.fillStyle = "Yellow";
+                ctx.fillText(player.coins + "$",  myGameArea.canvas.width / 2,myGameArea.canvas.height / 2 - 120);
+                ctx.fillStyle = 'rgba(200,200,200,0.2)';
+                ctx.fillRect(myGameArea.canvas.width / 2 -125, myGameArea.canvas.height / 2 -100 ,250,250);
+                ctx.font = "italic 13pt Courier";
+                ctx.fillStyle = "black";
+                ctx.fillText("High Score Board", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 -80 );
+                ctx.font = "20px Arial";
+
+                let top =  [];
+                // iterate localStorage
+for (var i = 0; i < localStorage.length; i++) {
+    // set iteration key name
+    var key = localStorage.key(i);
+    // use key name to retrieve the corresponding value
+    var value = localStorage.getItem(key);
+    //console.log(`key : ` + key + 'value :' + value);
+    //console.log(JSON.parse(value));
+    top.push(JSON.parse(value));
+  }
+    top.sort((a, b) => (a.score > b.score) ? 1: -1);
+    console.log( Object.values(top[0]))
+  //  ctx.fillStyle = "white";
+  //  ctx.font = "italic 13pt Courier";
+   // ctx.fillText('Name: '+top[0].key +' Score: ' +top[0].value , myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 -20 + (60 * i) );
+
+   //perguntar na aula o pq de nao conseguir ter o valor
+              
         }
     },
    
 }
 
 myGameArea.generateCanvas()
+

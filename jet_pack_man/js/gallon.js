@@ -4,7 +4,8 @@ class Gallon extends Component {
     static width = 50
     static height = 50
     static distance = 500
-         
+
+
     constructor(x,y) {
         super(x, y, Gallon.width, Gallon.height)
         this.pickUp = true;

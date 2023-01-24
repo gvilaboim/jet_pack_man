@@ -41,7 +41,6 @@ function start() {
     // Create the Background
     let username = prompt("Choose a name to Play Jet Pack Man!: ")
     const bulletController = new BulletController(myGameArea.context);
-
     // Create the Player
     player = new Player( myGameArea.canvas.width/2,0,120,90,bulletController,username)
     player.sprite();

@@ -106,7 +106,8 @@ document.addEventListener('keydown', ({ key }) => {
                const ctx = myGameArea.context;
                ctx.canvas.hidden = true;
                let s = document.getElementById("shop")
-               document.body.style.backgroundImage = `url('/img/game_background_1.png')`
+               document.body.style.backgroundImage = `url('./img/game_background_1.png')`
+               
                console.log(player.playerName);
                var key = localStorage.key(player.playerName);
                console.log(key);

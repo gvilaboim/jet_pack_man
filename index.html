@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+    <div  id="shop">
+        <div class="row">
+            <div class="block card">
+                <div id="pane">
+                    <div id="coiner" ></div>
+                 <h1> Jet Pack Man Shop</h1> <span id="coins"> Coins:</span>
+                </div>
+                <div id="pane">
+                    <div  id="coiner" class="two InsideContent"></div>
+                    <div id="menu-item" class="InsideContent">JetPack Level <span id="jlevel"> 0</span> <button onclick="upgradeJetPack()" id="upCostJet"> Upgrade 25$</button></div> 
+                </div>
+                <div id="pane">
+                    <div  id="coiner" class="three InsideContent"></div>
+                    <div id="menu-item" class="InsideContent">Player health <span id="hlevel"> 0</span> <button onclick="upgradeHealth()" id="upCostHealth"> Upgrade 25$</button></div> 
+                </div>
+                <div id="pane">
+                    <div  id="coiner" class="three InsideContent"></div>
+                    <div id="menu-item" class="InsideContent">Player Gun <span id="glevel"> 0</span> <button onclick="upgradeGun()" id="upCostGun"> Upgrade 25$</button></div> 
+                </div>
+                <div id="pane">
+                <button onclick="mainMenu()"> Play Again</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-menu" >
+        <input type="text" required id="pname" name="lname" placeholder="Enter Your Name"><br><br>
+    </div>
+  
+
+
+
+    <script src="js/myGameArea.js"></script>
+    <script src="js/component.js"></script>
+    <script src="js/gallon.js"></script>
+    <script src="js/monster.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/pipe.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/BulletController.js"></script>
+    <script src="js/Bullet.js"></script>
+
+    <script src="js/DOM.js"></script>
+</body>
+</html>

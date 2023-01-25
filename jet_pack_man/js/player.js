@@ -44,26 +44,7 @@ class Player extends Component {
             color: "rgb(0, 255, 0)"
         }
 
-        if( this.PlayerObj) {
-
-        if(this.PlayerObj.glevel>1)
-        {
-            this.damage = 10 + 5 * this.PlayerObj.glevel;
-        }
-        if(this.PlayerObj.hlevel>1)
-        {
-            this.health = 100 + 25 * this.PlayerObj.hlevel ;
-        }
-        if(this.PlayerObj.coins >0)
-        {
-            this.coins = this.PlayerObj.coins ;
-        }
-        if(this.PlayerObj.jlevel>0)
-        {
-            this.fuel.value += 10 * this.PlayerObj.jlevel;
-        }
-    }
-    else {
+   
         this.hlevel = 1;
         this.jlevel= 1;
         this.glevel = 1;
@@ -71,9 +52,6 @@ class Player extends Component {
         this.jcost = 25;
         this.gcost = 25;
         this.coins = 0;
-
-    }
-       
 
       
     }

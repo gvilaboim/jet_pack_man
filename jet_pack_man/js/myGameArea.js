@@ -48,6 +48,15 @@ const myGameArea = {
         {
             player.health += player.hlevel/100
         }
+        if(player.glevel >1)
+        {
+            player.damage = 10 * player.glevel;
+        }
+        
+      /*  if(player.jlevel >1)
+        {
+            player.fuel.value = 100 + 25 * player.jlevel;
+        } */
 
         //Name Player
         ctx.drawImage(player.head, 7, 10, 25,25)
@@ -61,7 +70,7 @@ const myGameArea = {
 
         //player gas
         ctx.fillStyle = "black";
-        ctx.fillRect(10, 75, 100, 12)
+        ctx.fillRect(10, 75, 75 + (25 * player.jlevel), 12)
         ctx.fillStyle = player.fuel.color;
         ctx.fillRect(10, 75, player.fuel.value, 12)
         ctx.drawImage(player.gas, 5,65, 25,25)
@@ -192,7 +201,14 @@ const myGameArea = {
                 if (player.checkCollision(gallon) &&  gallon.pickUp) {
                     
                   //  console.log(`Index Fuel -> ${index}`);
-                    player.fuel.value = 100;
+
+                  //40
+
+                    player.fuel.value += 50;
+                    if( player.fuel.value >= 75 + (25* player.jlevel))
+                    {
+                       player.fuel.value =  75 + (25* player.jlevel);
+                    }
                     player.fuel.color= "rgb(0, 255, 0)";
                     gallon.img.src = "";
                     gallon.pickUp = false;

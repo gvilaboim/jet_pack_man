@@ -20,11 +20,15 @@
                 </div>
                 <div id="pane">
                     <div  id="coiner" class="two InsideContent"></div>
-                    <div id="menu-item" class="InsideContent">JetPack Level 1 <button onclick=""> Upgrade</button></div> 
+                    <div id="menu-item" class="InsideContent">JetPack Level <span id="jlevel"> 0</span> <button onclick="upgradeJetPack()" id="upCostJet"> Upgrade 25$</button></div> 
                 </div>
                 <div id="pane">
                     <div  id="coiner" class="three InsideContent"></div>
-                    <div id="menu-item" class="InsideContent">Player health 1 <button onclick=""> Upgrade</button></div> 
+                    <div id="menu-item" class="InsideContent">Player health <span id="hlevel"> 0</span> <button onclick="upgradeHealth()" id="upCostHealth"> Upgrade 25$</button></div> 
+                </div>
+                <div id="pane">
+                    <div  id="coiner" class="three InsideContent"></div>
+                    <div id="menu-item" class="InsideContent">Player Gun <span id="glevel"> 0</span> <button onclick="upgradeGun()" id="upCostGun"> Upgrade 25$</button></div> 
                 </div>
                 <div id="pane">
                 <button onclick="mainMenu()"> Play Again</button>
@@ -33,7 +37,8 @@
         </div>
     </div>
 
-    <div id="main-menu">
+    <div id="main-menu" >
+        <input type="text" required id="pname" name="lname" placeholder="Enter Your Name"><br><br>
     </div>
   
 

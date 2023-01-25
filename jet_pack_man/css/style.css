@@ -3,7 +3,8 @@ body{
     position: relative;
     flex-direction: column;
     overflow: hidden;
-    
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 h1{
@@ -35,12 +36,12 @@ button:hover
 
 }
   #shop {
-   z-index: 3;
+   z-index: 1;
    display: none;
 }
 
 .row {
-    margin-top: 15%;
+    margin-top: 10%;
 	width: 100%;
 	text-align: center;
 }
@@ -83,4 +84,29 @@ button:hover
 	text-align: center;
     color: whitesmoke;
     font-size: 2em;
+}
+
+#main-menu {
+    display:none;
+    visibility: hidden;
+
+}
+
+#pname{
+    position: absolute;
+    top:38%;
+    left:44%;
+
+    background-color:   #DEB297;
+    display: inline;
+    font-size: 2rem;
+    text-align: center;
+    width: 14rem;
+    height: 2.5rem;
+    padding-top: 0rem;
+    font-family: 'VT323', monospace;
+    -webkit-box-shadow: 0.1rem 0.1rem 1.2rem 0rem rgba(50, 50, 50, 0.75), inset 0.1rem 0.1rem 1.9rem 0rem rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0.1rem 0.1rem 1.2rem 0rem rgba(50, 50, 50, 0.75), inset 0.1rem 0.1rem 1.9rem 0rem rgba(50, 50, 50, 0.75);
+    box-shadow:         0.1rem 0.1rem 1.2rem 0rem rgba(50, 50, 50, 0.75), inset 0.1rem 0.1rem 1.9rem 0rem rgba(50, 50, 50, 0.75);
+}
 }

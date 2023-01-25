@@ -33,15 +33,22 @@ function mainMenu()
     ctx.fillText("Arrow Up -> Jump/Fly " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 60 );
     ctx.fillText('Space Bar  -> Shoot ' , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 100 );
     ctx.fillText("Esc -> Game Pause/Resume " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 140 );
-    
+    document.getElementById("pname").style.zIndex = "2";
+    document.getElementById("main-menu").style.display ="inline";
+    document.getElementById("main-menu").style.visibility = 'visible';
+
 }
 
 }
 function start() {
     // Create the Background
-    let username = prompt("Choose a name to Play Jet Pack Man!: ")
+    document.getElementById("pname").style.zIndex = "-1";
+    document.getElementById("main-menu").style.display = "none";
+    document.getElementById("main-menu").style.visibility = 'hidden';
+
+   // let username = prompt("Choose a name to Play Jet Pack Man!: ")
+    let username = document.getElementById("pname").value
     const bulletController = new BulletController(myGameArea.context);
-    // Create the Player
     player = new Player( myGameArea.canvas.width/2,0,120,90,bulletController,username)
     player.sprite();
     myGameArea.components.push(player)
@@ -59,6 +66,82 @@ function start() {
     updateTimer = setInterval(myGameArea.update, 1000 / 100)
     isStarted = true;
 
+}
+
+function upgradeJetPack()
+{   
+
+    if(player.coins >= player.jcost )
+    {
+        player.coins -= player.jcost
+        player.jlevel +=1;
+        document.getElementById("jlevel").innerText = player.jlevel ;
+        player.jcost = 25 * player.jlevel ;
+        document.getElementById("upCostJet").innerText = `Upgrade ${player.jcost}$`;
+        document.getElementById("coins").innerText = "Coins: "+ player.coins +"$" ;
+        let obj = {
+            'name' : player.playerName,
+            'coins' : player.coins,
+            'score' : player.score,
+            'jetpack': player.jlevel,
+            'healt':player.hlevel,
+            'gun':player.glevel
+        }
+        localStorage.setItem(player.playerName, JSON.stringify(obj));
+    }
+   
+
+}
+function upgradeHealth()
+{
+   
+    console.log("Health Cost " + player.hcost)
+    console.log("money" + player.coins)
+    if(player.coins >= player.hcost )
+    {
+        player.coins -= player.hcost
+    player.hlevel +=1;
+    document.getElementById("hlevel").innerText = player.hlevel ;
+    player.hcost = 25 * player.hlevel ;
+    document.getElementById("upCostHealth").innerText = `Upgrade ${player.hcost}$`;
+    document.getElementById("coins").innerText = "Coins: "+ player.coins +"$" ;
+    let obj = {
+        'name' : player.playerName,
+        'coins' : player.coins,
+        'score' : player.score,
+        'jetpack': player.jlevel,
+        'healt':player.hlevel,
+        'gun':player.glevel
+    }
+    localStorage.setItem(player.playerName, JSON.stringify(obj));
+    
+
+    }
+}
+function upgradeGun()
+{
+    if(player.coins >= player.gcost )
+    {
+        player.coins -=player.gcost
+    player.glevel +=1;
+
+    document.getElementById("glevel").innerText = player.glevel ;
+    player.gcost = 25 * player.glevel ;
+
+    document.getElementById("upCostGun").innerText = `Upgrade ${ player.gcost}$`;
+    document.getElementById("coins").innerText = "Coins: "+ player.coins +"$" ;
+    let obj = {
+        'name' : player.playerName,
+        'coins' : player.coins,
+        'score' : player.score,
+        'jetpack': player.jlevel,
+        'healt':player.hlevel,
+        'gun':player.glevel
+    }
+    localStorage.setItem(player.playerName, JSON.stringify(obj));
+
+
+    }
 }
 
 
@@ -87,7 +170,16 @@ document.addEventListener('keydown', ({ key }) => {
           localStorage.clear();
         break;
         case "Enter":
-            if(!isStarted)
+            let username = document.getElementById("pname").value
+            const ctx = myGameArea.context;
+
+            ctx.fillText("Please Enter a name to start playing " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 175 );
+
+            if(username == "")
+            {
+
+            }
+            if(!isStarted && username !="")
             {
                 start();
             }
@@ -102,21 +194,36 @@ document.addEventListener('keydown', ({ key }) => {
         case "s":
             if(myGameArea.isGameOver)
             {
+                document.getElementById("main-menu").style.display = "none";
+                document.getElementById("main-menu").style.visibility = 'hidden';
                // myGameArea.ctx.remove();
                const ctx = myGameArea.context;
                ctx.canvas.hidden = true;
                let s = document.getElementById("shop")
                document.body.style.backgroundImage = `url('./img/game_background_1.png')`
                
-               console.log(player.playerName);
-               var key = localStorage.key(player.playerName);
-               console.log(key);
-               var value = window.localStorage.getItem(key);
+               //console.log(player.playerName);
+               var value = window.localStorage.getItem(player.playerName);
                let obj = JSON.parse(value);
-               console.log(obj)
+             //  console.log(obj)
                document.getElementById("coins").innerText = "Coins: "+ obj.coins +"$" ;
+               document.getElementById("jlevel").innerText = obj.jetpack ;
+               document.getElementById("hlevel").innerText = obj.healt ;
+               document.getElementById("glevel").innerText = obj.gun;
+               document.getElementById("upCostGun").innerText = `Upgrade ${player.gcost}$`;
+               document.getElementById("upCostHealth").innerText = `Upgrade ${player.hcost}$`;
+               document.getElementById("upCostJet").innerText = `Upgrade ${player.hcost}$`;
                s.style.display="block"
                s.style.zIndex = "1";
+               let obj2 = {
+                'name' : player.playerName,
+                'coins' : player.coins,
+                'score' : player.score,
+                'jetpack': player.jlevel,
+                'healt':player.hlevel,
+                'gun':player.glevel
+            }
+            localStorage.setItem(player.playerName, JSON.stringify(obj2));
             }
             break;
 

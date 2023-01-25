@@ -25,6 +25,25 @@ let restart = () => {
         color: "rgb(0, 255, 0)"
     }
 
+    if( player.PlayerObj) {
+        if(player.PlayerObj.glevel>1)
+        {
+            player.damage = 10 + 5 * player.PlayerObj.glevel;
+        }
+        if(player.PlayerObj.hlevel>1)
+        {
+            player.health = 100 + 25 * player.PlayerObj.hlevel ;
+        }
+        if(player.PlayerObj.coins >0)
+        {
+            player.coins = player.PlayerObj.coins ;
+        }
+        if(player.PlayerObj.jlevel>0)
+        {
+            player.fuel.value += 10 * player.PlayerObj.jlevel;
+        }
+    }
+
     // Generate Pipes
     for (let i = 0; i < 4; i++) {
         pipesDown.push(new Pipe(Pipe.distance * i , i * Pipe.height))

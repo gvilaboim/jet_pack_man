@@ -21,7 +21,8 @@ const myGameArea = {
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     },
     update: function () {
-            
+        document.getElementById("main-menu").style.display = "none";
+        document.getElementById("main-menu").style.visibility = 'hidden';
         if (myGameArea.isGamePaused) return
 
         const ctx = myGameArea.context
@@ -33,27 +34,49 @@ const myGameArea = {
         //render score
 
         //player health
-       ctx.drawImage(player.hp_bar, 7, 10, 100,20)
+        console.log("###################");
+        console.log("Player Health: " + player.health);
+        console.log("Player Hlevel :" + player.hlevel);
+        console.log("Player jlevel :" + player.jlevel);
+        console.log("Player glevel :" + player.glevel);
+        console.log("Player  gcost: " +player.gcost); 
+        console.log("Player hcost: " +player.hcost);
+        console.log("Player jcost: " +player.jcost);
+        console.log("Player damage: " +player.damage);
+        console.log("###################"); 
+        if(player.health < 100 && player.hlevel >1)
+        {
+            player.health += player.hlevel/100
+        }
+
+        //Name Player
+        ctx.drawImage(player.head, 7, 10, 25,25)
+        ctx.font = " bold italic 15pt Courier";
+        ctx.fillStyle = "white";
+        ctx.fillText(player.playerName, 79,25);
+
+       ctx.drawImage(player.hp_bar, 7, 40, 100,20)
        ctx.fillStyle = "black";
-       ctx.fillRect(105, 13, player.health - 100 ,12)
+       ctx.fillRect(105, 43, player.health - 100,12)
 
         //player gas
         ctx.fillStyle = "black";
-        ctx.fillRect(10, 45, 100, 12)
+        ctx.fillRect(10, 75, 100, 12)
         ctx.fillStyle = player.fuel.color;
-        ctx.fillRect(10, 45, player.fuel.value, 12)
-        ctx.drawImage(player.gas, 5, 35, 25,25)
+        ctx.fillRect(10, 75, player.fuel.value, 12)
+        ctx.drawImage(player.gas, 5,65, 25,25)
+
+       //player coins
+       ctx.drawImage(player.coin, 5, 100, 20,20)
+       ctx.font = "20px Arial";
+       ctx.fillStyle = "Yellow";
+       ctx.fillText(player.coins + "$", 45 ,118);
 
         //player Score
 
         ctx.font = "20px Arial";
         ctx.fillStyle = "white";
         ctx.fillText("Score: " + player.score, 60, myGameArea.canvas.height -10);
-       //player coins
-       ctx.drawImage(player.coin, 5, 70, 20,20)
-       ctx.font = "20px Arial";
-       ctx.fillStyle = "Yellow";
-       ctx.fillText(player.coins + "$", 45 ,88);
 
        //player disparar
         player.bulletController.draw(ctx);
@@ -335,7 +358,10 @@ const myGameArea = {
             let obj = {
                 'name' : player.playerName,
                 'coins' : player.coins,
-                'score' : player.score
+                'score' : player.score,
+                'jetpack': player.jlevel,
+                'healt':player.hlevel,
+                'gun':player.glevel
             }
             localStorage.setItem(player.playerName, JSON.stringify(obj));
 

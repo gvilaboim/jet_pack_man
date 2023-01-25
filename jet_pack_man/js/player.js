@@ -9,7 +9,6 @@ class Player extends Component {
         this.shoot = [];
         this.bullet = new Image();
         this.img = [ this.run , this.fly ,  this.stopped , this.shoot];
-        this.damage = 20;
         this.bullets = 0;
         this.bspeed = 3;
         this.bulletController = bulletController;
@@ -32,13 +31,51 @@ class Player extends Component {
         this.gas.src = "./img/gas-can.png";
         this.coin = new Image();
         this.coin.src= "./img/coin.png";
+        this.head = new Image();
+        this.head.src = "./img/head_white_helmet.png";
         this.playerName = name;
-        this.health = 100;
-        this.coins = 0;
+        this.PlayerObj = JSON.parse(window.localStorage.getItem(this.playerName))
+        console.log(this.PlayerObj)
+        this.damage = 10;
+        this.health = 100 ;
+        console.log(this.PlayerObj)
         this.fuel = {
-            value:100,
+            value:100 ,
             color: "rgb(0, 255, 0)"
         }
+
+        if( this.PlayerObj) {
+
+        if(this.PlayerObj.glevel>1)
+        {
+            this.damage = 10 + 5 * this.PlayerObj.glevel;
+        }
+        if(this.PlayerObj.hlevel>1)
+        {
+            this.health = 100 + 25 * this.PlayerObj.hlevel ;
+        }
+        if(this.PlayerObj.coins >0)
+        {
+            this.coins = this.PlayerObj.coins ;
+        }
+        if(this.PlayerObj.jlevel>0)
+        {
+            this.fuel.value += 10 * this.PlayerObj.jlevel;
+        }
+    }
+    else {
+        this.hlevel = 1;
+        this.jlevel= 1;
+        this.glevel = 1;
+        this.hcost = 25;
+        this.jcost = 25;
+        this.gcost = 25;
+        this.coins = 0;
+
+    }
+       
+
+      
     }
 
     sprite() {

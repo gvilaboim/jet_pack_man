@@ -170,7 +170,7 @@ const myGameArea = {
                     //player.ySpeed <= 0
                     if ( player.ySpeed <= 0 && player.y < pipe.y ) {
                       //  console.log("Plataforma cima")
-                        player.y = pipe.y - player.h
+                        player.y = pipe.y - player.h +20
                         player.x -= myGameArea.gamespeed;
                         player.xSpeed = 2
                         player.ySpeed = 0

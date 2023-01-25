@@ -23,11 +23,23 @@ class Component {
 
     checkCollision(otherComponent) {
         if (
-            this.x < otherComponent.x + otherComponent.w &&
+            this.x +10< otherComponent.x + otherComponent.w &&
             this.x + this.w > otherComponent.x &&
-            this.y < otherComponent.y + otherComponent.h &&
+            this.y +20 < otherComponent.y + otherComponent.h &&
             this.y + this.h > otherComponent.y
         ) {
+
+            if ( this.x +10< otherComponent.x + otherComponent.w && this.x + this.w > otherComponent.x)
+                {
+                    console.log("Esquerda |direita")
+                }
+            if( this.y +20 < otherComponent.y + otherComponent.h &&
+                this.y + this.h > otherComponent.y)
+                {
+                    console.log("cima |baixo")
+
+                }
+       
             return true
         }
         else {

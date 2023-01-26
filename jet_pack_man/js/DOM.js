@@ -7,8 +7,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
 });
 
 function mainMenu()
-
-{  let s = document.getElementById("shop")
+{
+       
+     new Monster(0,0,0, 0,0) 
+     new Pipe(0,0)
+    let s = document.getElementById("shop")
     document.body.style.backgroundImage = ``;
     s.style.display="block"
     s.style.zIndex = "1";

@@ -95,7 +95,9 @@ button:hover
 #pname{
     position: absolute;
     top:38%;
-    left:44%;
+    left: 40%;
+    right: 40%;
+    margin:auto;
 
     background-color:   #DEB297;
     display: inline;

@@ -54,21 +54,33 @@ button:hover
 	display: inline;
 }
 
+.block{
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+
+}
 #pane {
 	width: 40vw;
 	margin: 0px auto -1px auto;
 	padding: 30px;
 	font-family: 'VT323', monospace;
-	text-align: center;
+
+
 }
 
 #menu-item {
+    display: flex;
 	font-size: 33px;
-	margin-left: 60px;
-	top: -10px;
 	width: 150px;
 	color: white;
-	text-align: left;
+    text-align: center;
+    align-content:center;
+    justify-content: space-between;
+    align-content: space-between;
+    width: 40rem;
+    margin: auto;
+
 }
 
 .card {

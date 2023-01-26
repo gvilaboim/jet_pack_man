@@ -41,6 +41,16 @@
   }
 
 
+  collideWithM(sprite) {
+    return this.bullets.some((bullet) => {
+      if (bullet.collideWith(sprite)) {
+        this.bullets.splice(this.bullets.indexOf(bullet), 1);
+        myGameArea.monsters[0].hit.play();
+        return true;
+      }
+      return false;
+    });
+  }
   collideWith(sprite) {
     return this.bullets.some((bullet) => {
       if (bullet.collideWith(sprite)) {

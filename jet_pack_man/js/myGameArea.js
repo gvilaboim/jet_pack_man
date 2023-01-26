@@ -33,7 +33,8 @@ const myGameArea = {
 
         //render score
 
-        //player health
+        //player health 
+        /*
         console.log("###################");
         console.log("Player Health: " + player.health);
         console.log("Player Hlevel :" + player.hlevel);
@@ -43,7 +44,7 @@ const myGameArea = {
         console.log("Player hcost: " +player.hcost);
         console.log("Player jcost: " +player.jcost);
         console.log("Player damage: " +player.damage);
-        console.log("###################"); 
+        console.log("###################");  */
         if(player.health < 100 && player.hlevel >1)
         {
             player.health += player.hlevel/100
@@ -62,7 +63,7 @@ const myGameArea = {
         ctx.drawImage(player.head, 7, 10, 25,25)
         ctx.font = " bold italic 15pt Courier";
         ctx.fillStyle = "white";
-        ctx.fillText(player.playerName, 79,25);
+        ctx.fillText(player.playerName, 79,30);
 
        ctx.drawImage(player.hp_bar, 7, 40, 100,20)
        ctx.fillStyle = "black";
@@ -168,6 +169,8 @@ const myGameArea = {
 
                 if (pipe.checkCollision(player)) {
                     //player.ySpeed <= 0
+                    //player.isOnPlatform = true
+
                     if ( player.ySpeed <= 0 && player.y < pipe.y ) {
                       //  console.log("Plataforma cima")
                         player.y = pipe.y - player.h +20
@@ -175,6 +178,8 @@ const myGameArea = {
                         player.xSpeed = 2
                         player.ySpeed = 0
                         player.isOnPlatform = true
+                       // player.OnPlatform = true
+
                         player.jump = true;
                     }
                     else if (player.ySpeed > 0 && player.y + player.h > pipe.y + pipe.h ) {
@@ -199,7 +204,8 @@ const myGameArea = {
             myGameArea.gallons.forEach((gallon , index )=> {
 
                 if (player.checkCollision(gallon) &&  gallon.pickUp) {
-                    
+
+                    gallon.sound.play();
                   //  console.log(`Index Fuel -> ${index}`);
 
                   //40
@@ -284,6 +290,7 @@ const myGameArea = {
 
             if(myGameArea.monsters[0].bulletController.collideWith(player))
             {
+                player.hit.play();
                 player.health -= myGameArea.monsters[0].damage;
                 if(player.health <=0)
                 {
@@ -291,8 +298,10 @@ const myGameArea = {
                 }
             }
 
-            if(player.bulletController.collideWith(myGameArea.monsters[0]) && myGameArea.monsters[0].isAlive)
+            if(player.bulletController.collideWithM(myGameArea.monsters[0]) && myGameArea.monsters[0].isAlive)
             {
+                myGameArea.monsters[0].hit.play();
+
                 if(myGameArea.monsters[0].health > 0)
                 {
                     myGameArea.monsters[0].health -= player.damage;
@@ -307,6 +316,8 @@ const myGameArea = {
                     setTimeout(() => {
                         player.coins +=  myGameArea.monsters[0].coins;
                         player.health +=  myGameArea.monsters[0].giveHealth;
+                        player.coinSound.play();
+
                         if( player.health >100)
                         {
                             player.health=100;

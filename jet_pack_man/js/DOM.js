@@ -76,6 +76,7 @@ function upgradeJetPack()
 
     if(player.coins >= player.jcost )
     {
+        player.coinSound.play();
         player.coins -= player.jcost
         player.jlevel +=1;
         document.getElementById("jlevel").innerText = player.jlevel ;
@@ -102,6 +103,8 @@ function upgradeHealth()
     console.log("money" + player.coins)
     if(player.coins >= player.hcost )
     {
+        player.coinSound.play();
+
         player.coins -= player.hcost
     player.hlevel +=1;
     document.getElementById("hlevel").innerText = player.hlevel ;
@@ -125,6 +128,9 @@ function upgradeGun()
 {
     if(player.coins >= player.gcost )
     {
+        player.coinSound.play();
+        player.coinSound.play();
+
         player.coins -=player.gcost
     player.glevel +=1;
 

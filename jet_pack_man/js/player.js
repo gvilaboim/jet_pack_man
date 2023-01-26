@@ -19,7 +19,7 @@ class Player extends Component {
         this.gravity = 0.1
         this.ySpeed = 0
         this.xSpeed = 1
-        this.OnPlataform = false;
+        this.isOnPlatform = false;
         this.canMoveRight = true;
         this.canMoveUp = true;
         this.score = 0;
@@ -44,7 +44,6 @@ class Player extends Component {
             color: "rgb(0, 255, 0)"
         }
 
-   
         this.hlevel = 1;
         this.jlevel= 1;
         this.glevel = 1;
@@ -53,6 +52,16 @@ class Player extends Component {
         this.gcost = 25;
         this.coins = 0;
 
+        this.jetpack = document.createElement('audio')
+        this.jetpack.src = "/sound/jetpack.mp3"
+        this.jetpack.volume = 0.03
+    
+        this.coinSound = document.createElement('audio')
+        this.coinSound.src = "/sound/coin.mp3"
+        this.coinSound.volume = 0.1
+        this.hit = document.createElement('audio')
+        this.hit.src = "/sound/player_hit.mp3"
+        this.hit.volume = 0.05
       
     }
 
@@ -109,6 +118,8 @@ class Player extends Component {
         const ctx = myGameArea.context
         ctx.drawImage(this.img[this.choose][this.frame], this.x, this.y, this.w, this.h)
         this.shooting(ctx);
+        //this.sound.pause()
+
     }
     shooting(ctx)
     {
@@ -130,6 +141,7 @@ class Player extends Component {
 
     notMove()
     {
+        this.jetpack.pause();
         this.choose = 2;
         this.frame++;
         if( this.frame>13)
@@ -141,13 +153,47 @@ class Player extends Component {
 
  
     moveLeft() {
-        this.choose = 0;
-        this.x -= this.xSpeed + myGameArea.gamespeed;
-        this.frame--;
-        if( this.frame<=0)
+     
+
+        if(this.isOnPlatform)
         {
-            this.frame = 13;
+            this.choose = 0;
+            this.x -= this.xSpeed + myGameArea.gamespeed;
+            this.frame--;
+            if( this.frame<=0)
+            {
+                this.frame = 13;
+            }
+
+         
         }
+        else {
+            if(this.fuel.value >0)
+            { 
+            this.jetpack.play();
+            this.x -= this.xSpeed + myGameArea.gamespeed;
+            this.choose = 1;
+            this.frame++;
+            if( this.frame>13)
+            {
+                this.frame = 0;
+            }
+            this.fuel.value =  this.fuel.value -0.3;
+        }
+        else {
+            this.jetpack.pause();
+            this.choose = 0;
+            this.x -= this.xSpeed + myGameArea.gamespeed;
+            this.frame++;
+            if( this.frame>13)
+            {
+                this.frame = 0;
+            }
+          }
+        }
+
+
+
         if(!this.isOnPlatform){
         pipesDown.forEach(platform => {
            if (this.checkCollision(platform)) {
@@ -164,6 +210,9 @@ class Player extends Component {
     
     
     moveRight() {
+
+        if(this.isOnPlatform)
+        {
             this.choose = 0;
             this.x += this.xSpeed +1
             this.frame++;
@@ -171,6 +220,34 @@ class Player extends Component {
             {
                 this.frame = 0;
             }
+        }
+        else {
+            if(this.fuel.value >0)
+            { 
+            this.jetpack.play();
+            this.x += this.xSpeed +1
+            this.choose = 1;
+            this.frame++;
+            if( this.frame>13)
+            {
+                this.frame = 0;
+            }
+            this.fuel.value =  this.fuel.value  -0.3;
+          }
+          else {
+            this.jetpack.pause();
+            this.choose = 0;
+            this.x += this.xSpeed +1
+            this.frame++;
+            if( this.frame>13)
+            {
+                this.frame = 0;
+            }
+          }
+
+        }
+
+        
             if(!this.isOnPlatform){
             pipesDown.forEach(platform => {
                 if (this.checkCollision(platform)) {
@@ -188,6 +265,10 @@ class Player extends Component {
     }
 
     moveUp() {
+        if(this.fuel.value >0)
+        {   this.jetpack.play();
+
+      
             if( this.fuel.value >=70)
             {
                 this.choose = 1;
@@ -223,6 +304,7 @@ class Player extends Component {
                 this.fuel.color = "rgb(255, 0, 0)";
                 this.fuel.value =  this.fuel.value  -2;
             }
+        }
             if(this.fuel.value<=0)
          {     
             if(this.jump) {

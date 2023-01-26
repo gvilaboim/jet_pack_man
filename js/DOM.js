@@ -69,6 +69,7 @@ function start() {
 
     updateTimer = setInterval(myGameArea.update, 1000 / 100)
     isStarted = true;
+    
 
 }
 

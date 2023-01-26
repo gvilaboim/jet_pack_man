@@ -170,7 +170,6 @@ const myGameArea = {
                 if (pipe.checkCollision(player)) {
                     //player.ySpeed <= 0
                     //player.isOnPlatform = true
-
                     if ( player.ySpeed <= 0 && player.y < pipe.y ) {
                       //  console.log("Plataforma cima")
                         player.y = pipe.y - player.h +20
@@ -193,8 +192,10 @@ const myGameArea = {
                    //tirar a velocidade do x ou do y 
                 }
 
-                pipe.x -= myGameArea.gamespeed;
-                
+                pipe.x -=myGameArea.gamespeed;
+                if (pipe.checkCollision(player)){
+                    player.x -=myGameArea.gamespeed;
+                }
                 pipe.render()
             })
 

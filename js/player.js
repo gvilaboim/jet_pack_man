@@ -194,11 +194,15 @@ class Player extends Component {
 
 
 
-        if(!this.isOnPlatform){
+        if(!this.isOnPlatform && this.ySpeed < -20){
         pipesDown.forEach(platform => {
            if (this.checkCollision(platform)) {
-                if (this.x -10< platform.x + platform.w) {
-                    this.x = platform.x - myGameArea.gamespeed
+                if (this.x -10 < platform.x + platform.w ) {
+                    //this.x = platform.x - platform.w - myGameArea.gamespeed
+                   // this.x = platform.x + this.w -10 -myGameArea.gamespeed 
+                     this.x = platform.x -this.w
+
+
                 }
             }
             
@@ -248,11 +252,12 @@ class Player extends Component {
         }
 
         
-            if(!this.isOnPlatform){
+            if(!this.isOnPlatform ){
             pipesDown.forEach(platform => {
-                if (this.checkCollision(platform)) {
+                if (this.checkCollision(platform) && this.ySpeed < -20) {
                     if (this.x > platform.x - this.w -10) {
-                            this.x = platform.x + this.w -10 -myGameArea.gamespeed 
+                               this.x = platform.x - this.w 
+
                     }
   
                    }

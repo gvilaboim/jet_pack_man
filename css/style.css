@@ -38,6 +38,7 @@ button:hover
   #shop {
    z-index: 1;
    display: none;
+
 }
 
 .row {
@@ -107,10 +108,10 @@ button:hover
 #pname{
     position: absolute;
     top:38%;
+    bottom:80%;
     left: 40%;
     right: 40%;
     margin:auto;
-
     background-color:   #DEB297;
     display: inline;
     font-size: 2rem;
@@ -129,4 +130,15 @@ button:hover
     padding-left: 10px;
     width: 5%;
     height: 5%;
+}
+
+
+#background-video {
+    position: fixed;
+    right: 0;
+    top: -11%;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+    opacity: 0.9;
 }

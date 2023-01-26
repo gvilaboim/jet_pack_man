@@ -26,7 +26,7 @@ class Player extends Component {
         this.getPoint = true;
         this.jump = false;
         this.hp_bar = new Image();
-        this.hp_bar.src= "img/hp_bar.png"
+        this.hp_bar.src= "./img/hp_bar.png"
         this.gas = new Image();
         this.gas.src = "./img/gas-can.png";
         this.coin = new Image();

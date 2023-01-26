@@ -9,8 +9,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
 function mainMenu()
 {
        
-     new Monster(0,0,0, 0,0) 
-     new Pipe(0,0)
+     new Monster(0,0,0, 0,0);
+     new Pipe(0,0);
+     new Bullet(0,0,0,0);
+     new Gallon(0,0);
     let s = document.getElementById("shop")
     document.body.style.backgroundImage = ``;
     s.style.display="block"
@@ -18,16 +20,17 @@ function mainMenu()
     const ctx = myGameArea.context;
     ctx.canvas.hidden = false;
     console.log(ctx);
-    backgroundImg = new Image();
-    backgroundImg.src = "./img/game_background_1.png";
-    backgroundImg.onload = () => {
-    ctx.drawImage( backgroundImg, 0, 0, myGameArea.canvas.width, myGameArea.canvas.height);
-    ctx.fillStyle = "gray";
-    ctx.font = "40px Arial";
-    ctx.textAlign = "center";
-    ctx.fillText("Jet Pack Man!", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 - 100);
-    ctx.fillStyle = 'rgba(175,238,238,0.2)';
+  
+   
+    ctx.fillStyle = 'rgb(48, 46, 46,0.5)';
     ctx.fillRect(myGameArea.canvas.width / 2 -250, myGameArea.canvas.height / 2 -250,500,500);
+    ctx.font = "80px VT323";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "white";
+    ctx.fillText("Jet Pack Man!", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 - 160);
+    ctx.font = "30px VT323";
+    ctx.fillText("Made by Gonçalo Vilaboim", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 - 120);
+
     ctx.fillStyle = "white";
     ctx.font = "italic 13pt Courier";
     ctx.fillText('Press "Enter" to Start! ', myGameArea.canvas.width / 2, myGameArea.canvas.height / 2  -70);
@@ -41,13 +44,12 @@ function mainMenu()
     document.getElementById("main-menu").style.visibility = 'visible';
 
 }
-
-}
 function start() {
     // Create the Background
     document.getElementById("pname").style.zIndex = "-1";
     document.getElementById("main-menu").style.display = "none";
     document.getElementById("main-menu").style.visibility = 'hidden';
+    document.getElementById("shop").style.display = "none";
 
    // let username = prompt("Choose a name to Play Jet Pack Man!: ")
     let username = document.getElementById("pname").value
@@ -132,7 +134,7 @@ function upgradeGun()
         player.coinSound.play();
 
         player.coins -=player.gcost
-    player.glevel +=1;
+        player.glevel +=1;
 
     document.getElementById("glevel").innerText = player.glevel ;
     player.gcost = 25 * player.glevel ;
@@ -210,11 +212,9 @@ document.addEventListener('keydown', ({ key }) => {
                ctx.canvas.hidden = true;
                let s = document.getElementById("shop")
                document.body.style.backgroundImage = `url('./img/game_background_1.png')`
-               
                //console.log(player.playerName);
                var value = window.localStorage.getItem(player.playerName);
                let obj = JSON.parse(value);
-             //  console.log(obj)
                document.getElementById("coins").innerText = "Coins: "+ obj.coins +"$" ;
                document.getElementById("jlevel").innerText = obj.jetpack ;
                document.getElementById("hlevel").innerText = obj.healt ;

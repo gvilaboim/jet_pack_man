@@ -23,11 +23,11 @@ class Monster extends Component {
         this.coins = Math.floor(Math.random() * 10);
         this.bulletSpeed = 5;
         this.dead = document.createElement('audio')
-        this.dead.src = "/sound/robot_dead.mp3"
+        this.dead.src = "./sound/robot_dead.mp3"
         this.dead.volume = 0.05
 
         this.hit = document.createElement('audio')
-        this.hit.src = "/sound/robot_hit.mp3"
+        this.hit.src = "./sound/robot_hit.mp3"
         this.hit.volume = 0.05
 
     }

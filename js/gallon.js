@@ -38,7 +38,7 @@ class Gallon extends Component {
          this.img.src = "./img/gas-can.png";
 
          this.sound = document.createElement('audio')
-         this.sound.src = "/sound/fuel.mp3"
+         this.sound.src = "./sound/fuel.mp3"
          this.sound.volume = 0.03
 
          console.log("Construtor Y : " + y);

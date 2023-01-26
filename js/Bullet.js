@@ -27,11 +27,11 @@ class Bullet {
     this.imgMonster = new Image();
     this.imgMonster.src = "./img/missil.png";
     this.missil = document.createElement('audio')
-    this.missil.src = "/sound/Missil.mp3"
+    this.missil.src = "./sound/Missil.mp3"
     this.missil.volume = 0.01
     
     this.gun = document.createElement('audio')
-    this.gun.src = "/sound/gun_shoot.mp3"
+    this.gun.src = "./sound/gun_shoot.mp3"
     this.gun.volume = 0.03
 
 

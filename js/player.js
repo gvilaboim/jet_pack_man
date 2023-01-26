@@ -53,14 +53,14 @@ class Player extends Component {
         this.coins = 0;
 
         this.jetpack = document.createElement('audio')
-        this.jetpack.src = "/sound/jetpack.mp3"
+        this.jetpack.src = "./sound/jetpack.mp3"
         this.jetpack.volume = 0.03
     
         this.coinSound = document.createElement('audio')
-        this.coinSound.src = "/sound/coin.mp3"
+        this.coinSound.src = "./sound/coin.mp3"
         this.coinSound.volume = 0.1
         this.hit = document.createElement('audio')
-        this.hit.src = "/sound/player_hit.mp3"
+        this.hit.src = "./sound/player_hit.mp3"
         this.hit.volume = 0.05
       
     }

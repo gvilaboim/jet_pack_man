@@ -21,7 +21,6 @@ function mainMenu()
     ctx.canvas.hidden = false;
     console.log(ctx);
   
-   
     ctx.fillStyle = 'rgb(48, 46, 46,0.5)';
     ctx.fillRect(myGameArea.canvas.width / 2 -250, myGameArea.canvas.height / 2 -250,500,500);
     ctx.font = "80px VT323";
@@ -147,7 +146,7 @@ function upgradeGun()
         'score' : player.score,
         'jetpack': player.jlevel,
         'healt':player.hlevel,
-        'gun':player.glevel
+        'gun': player.glevel
     }
     localStorage.setItem(player.playerName, JSON.stringify(obj));
 
@@ -215,6 +214,7 @@ document.addEventListener('keydown', ({ key }) => {
                //console.log(player.playerName);
                var value = window.localStorage.getItem(player.playerName);
                let obj = JSON.parse(value);
+               console.log(obj);
                document.getElementById("coins").innerText = "Coins: "+ obj.coins +"$" ;
                document.getElementById("jlevel").innerText = obj.jetpack ;
                document.getElementById("hlevel").innerText = obj.healt ;
@@ -224,7 +224,7 @@ document.addEventListener('keydown', ({ key }) => {
                document.getElementById("upCostJet").innerText = `Upgrade ${player.hcost}$`;
                s.style.display="block"
                s.style.zIndex = "1";
-               let obj2 = {
+             /*  let obj2 = {
                 'name' : player.playerName,
                 'coins' : player.coins,
                 'score' : player.score,
@@ -232,8 +232,9 @@ document.addEventListener('keydown', ({ key }) => {
                 'healt':player.hlevel,
                 'gun':player.glevel
             }
-            localStorage.setItem(player.playerName, JSON.stringify(obj2));
+            localStorage.setItem(player.playerName, JSON.stringify(obj2)); */
             }
+        
             break;
 
         case "Spacebar": case "32" : case " ":

@@ -42,7 +42,10 @@ class Bullet {
     this.x +=this.speed;
     if(player.shootPressed)
     {
-      this.gun.play();
+      setTimeout(() => {
+        this.gun.play();
+
+      }, 500)
     }
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
     //ctx.fillRect(this.x, this.y, this.width, this.height);

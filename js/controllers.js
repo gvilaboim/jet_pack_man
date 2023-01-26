@@ -13,6 +13,8 @@ let restart = () => {
     myGameArea.gamespeed = 1;
     myGameArea.monsters = [];
     myGameArea.gallons = [];
+    player.bulletController.bullets = [];
+
     player.OnPlataform = false;
     player.x = myGameArea.canvas.width/2
     player.y = 0
@@ -27,22 +29,25 @@ let restart = () => {
         color: "rgb(0, 255, 0)"
     }
 
-    if( player.PlayerObj) {
-        if(player.PlayerObj.glevel>1)
+     value = window.localStorage.getItem(player.playerName);
+     obj = JSON.parse(value);
+
+    if( obj) {
+        if(obj.glevel>1)
         {
-            player.damage = 10 + 5 * player.PlayerObj.glevel;
+            player.damage = 10 + 5 * obj.glevel;
         }
-        if(player.PlayerObj.hlevel>1)
+        if(obj.hlevel>1)
         {
-            player.health = 100 + 25 * player.PlayerObj.hlevel ;
+            player.health = 100 + 25 * obj.hlevel ;
         }
-        if(player.PlayerObj.coins >0)
+        if(obj.coins >0)
         {
-            player.coins = player.PlayerObj.coins ;
+            player.coins = obj.coins ;
         }
-        if(player.PlayerObj.jlevel>0)
+        if(obj.jlevel>0)
         {
-            player.fuel.value += 10 * player.PlayerObj.jlevel;
+            player.fuel.value += 10 * obj.jlevel;
         }
     }
 

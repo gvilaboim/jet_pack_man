@@ -322,6 +322,7 @@ const myGameArea = {
                         {
                             player.health=100;
                         }
+                        myGameArea.monsters[0].bulletController.bullets = [];
                         myGameArea.monsters.pop();
                     }, "500")
                 }

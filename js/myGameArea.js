@@ -396,27 +396,29 @@ const myGameArea = {
            // ctx.clearRect(0, 0, myGameArea.canvas.width, myGameArea.canvas.height)
             // ctx.drawImage(background.img, background.x, background.y, myGameArea.canvas.width, myGameArea.canvas.height)
                 ctx.drawImage(background.img, 0, 0, myGameArea.canvas.width, myGameArea.canvas.height)
-                ctx.fillStyle = 'rgba(175,238,238,0.2)';
+                ctx.fillStyle = 'rgb(48, 46, 46,0.5)';
                 ctx.fillRect(myGameArea.canvas.width / 2 -250, myGameArea.canvas.height / 2 -250,500,500);
-                ctx.fillStyle = "white";
-                ctx.fillStyle = "red";
-                ctx.font = "40px Arial";
                 ctx.textAlign = "center";
-                ctx.fillText("Game Over!", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 -200);
-                ctx.font = "20px Arial";
+                ctx.font = "80px VT323";
+                ctx.textAlign = "center";
+                ctx.fillStyle = "red";
+                ctx.fillText("Game Over!", myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 -160);
+                ctx.font = "40px  VT323";
                 ctx.fillStyle = "white";
-                ctx.fillText("Your Final Score: " + player.score, myGameArea.canvas.width / 2,myGameArea.canvas.height / 2 - 150);
-                ctx.font = "20px Arial";
+                ctx.fillText("Your Final Score: " + player.score, myGameArea.canvas.width / 2,myGameArea.canvas.height / 2 - 120);
+                ctx.font = "40px  VT323";
                 ctx.fillStyle = "Yellow";
-                ctx.fillText(player.coins + "$",  myGameArea.canvas.width / 2,myGameArea.canvas.height / 2 - 120);
+                ctx.fillText(player.coins + "$",  myGameArea.canvas.width / 2,myGameArea.canvas.height / 2 - 80);
                 ctx.fillStyle = 'rgba(200,200,200,0.2)';
-                ctx.fillRect(myGameArea.canvas.width / 2 -175, myGameArea.canvas.height / 2 -100 ,350,250);
-                ctx.font = " bold italic 19pt Courier";
-                ctx.fillStyle = "black";
-                ctx.fillText("High Score Board", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 -80 );
-               // ctx.font = "20px Arial";
+            //  ctx.fillRect(myGameArea.canvas.width / 2 -175, myGameArea.canvas.height / 2 -100 ,350,250);
+                ctx.font = "italic 40px  VT323";
                 ctx.fillStyle = "white";
-                ctx.font = "bold italic 20pt Courier";
+                ctx.fillText("High Score Board", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 -30 );
+                ctx.fillStyle = "white";
+                ctx.strokeRect(myGameArea.canvas.width / 2 -200 , myGameArea.canvas.height / 2 -20 , 400, 1);
+
+                ctx.fillStyle = "white";
+                ctx.font = "bold italic 20pt VT323";
                 ctx.fillText('Press "S" to Enter Shop Menu! ', myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2+ 200  );
 
         
@@ -443,7 +445,7 @@ for (var i = 0; i < localStorage.length; i++) {
    }
     for(let i = 0;  i <n ; i ++)
     {
-        ctx.fillText('Player: '+top[i].name +' Score: ' +top[i ].score , myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 -20 + (60 * i) );
+        ctx.fillText('Player: '+top[i].name +' Score: ' +top[i ].score , myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 + 10+ (60 * i) );
     }
 
   //   localStorage.clear();

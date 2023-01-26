@@ -18,10 +18,17 @@ class Monster extends Component {
         this.walks= 0;
         this.bulletController = bulletController;
         this.target = false;
-        this.damage =10;
+        this.damage =25;
         this.giveHealth =10;
         this.coins = Math.floor(Math.random() * 10);
         this.bulletSpeed = 5;
+        this.dead = document.createElement('audio')
+        this.dead.src = "/sound/robot_dead.mp3"
+        this.dead.volume = 0.05
+
+        this.hit = document.createElement('audio')
+        this.hit.src = "/sound/robot_hit.mp3"
+        this.hit.volume = 0.05
 
     }
 
@@ -75,6 +82,7 @@ class Monster extends Component {
         {
             this.frame = 0;
         }
+        
         ctx.fillStyle = 'rgba(255,255,255,0.9)';
         ctx.fillRect(this.x, this.y -20, 100,4);
         ctx.fillStyle = 'rgba(0,255,0,0.9)';
@@ -89,6 +97,7 @@ class Monster extends Component {
 
     }
     if(this.choose == 2 && this.frame > 32)    {
+        this.dead.play();
         this.isAlive = false;    
     } 
    

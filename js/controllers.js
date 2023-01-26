@@ -11,6 +11,8 @@ let restart = () => {
     pipesDown = []
     myGameArea.monsters = [];
     myGameArea.gamespeed = 1;
+    myGameArea.monsters = [];
+    myGameArea.gallons = [];
     player.OnPlataform = false;
     player.x = myGameArea.canvas.width/2
     player.y = 0

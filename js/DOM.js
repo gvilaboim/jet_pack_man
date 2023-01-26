@@ -7,8 +7,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
 });
 
 function mainMenu()
-
-{  let s = document.getElementById("shop")
+{
+       
+     new Monster(0,0,0, 0,0) 
+     new Pipe(0,0)
+    let s = document.getElementById("shop")
     document.body.style.backgroundImage = ``;
     s.style.display="block"
     s.style.zIndex = "1";
@@ -73,6 +76,7 @@ function upgradeJetPack()
 
     if(player.coins >= player.jcost )
     {
+        player.coinSound.play();
         player.coins -= player.jcost
         player.jlevel +=1;
         document.getElementById("jlevel").innerText = player.jlevel ;
@@ -99,6 +103,8 @@ function upgradeHealth()
     console.log("money" + player.coins)
     if(player.coins >= player.hcost )
     {
+        player.coinSound.play();
+
         player.coins -= player.hcost
     player.hlevel +=1;
     document.getElementById("hlevel").innerText = player.hlevel ;
@@ -122,6 +128,9 @@ function upgradeGun()
 {
     if(player.coins >= player.gcost )
     {
+        player.coinSound.play();
+        player.coinSound.play();
+
         player.coins -=player.gcost
     player.glevel +=1;
 

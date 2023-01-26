@@ -111,4 +111,10 @@ button:hover
     -moz-box-shadow:    0.1rem 0.1rem 1.2rem 0rem rgba(50, 50, 50, 0.75), inset 0.1rem 0.1rem 1.9rem 0rem rgba(50, 50, 50, 0.75);
     box-shadow:         0.1rem 0.1rem 1.2rem 0rem rgba(50, 50, 50, 0.75), inset 0.1rem 0.1rem 1.9rem 0rem rgba(50, 50, 50, 0.75);
 }
+
+.image {
+    margin-right: 3rem;
+    padding-left: 10px;
+    width: 5%;
+    height: 5%;
 }

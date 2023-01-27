@@ -59,11 +59,13 @@ button:hover
     flex-wrap: wrap;
 }
 #pane {
+    display: flexbox;
+    justify-content: space-between;
+
 	width: 50vw;
 	margin: 0px auto -1px auto;
 	padding: 30px;
 	font-family: 'VT323', monospace;
-
 }
 
 #menu-item {

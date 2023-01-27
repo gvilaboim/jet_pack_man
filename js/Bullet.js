@@ -45,7 +45,7 @@ class Bullet {
       setTimeout(() => {
         this.gun.play();
 
-      }, 500)
+      }, 300)
     }
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
     //ctx.fillRect(this.x, this.y, this.width, this.height);

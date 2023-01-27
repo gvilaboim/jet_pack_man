@@ -37,12 +37,11 @@ button:hover
 }
   #shop {
    z-index: 1;
-   display: none;
-
+   display: relative;
+    
 }
 
 .row {
-    margin-top: 10%;
 	width: 100%;
 	text-align: center;
 }
@@ -58,22 +57,17 @@ button:hover
 .block{
     justify-content: space-between;
     flex-wrap: wrap;
-
-
 }
 #pane {
-	width: 40vw;
+	width: 50vw;
 	margin: 0px auto -1px auto;
 	padding: 30px;
 	font-family: 'VT323', monospace;
 
-
 }
 
 #menu-item {
-    display: flex;
 	font-size: 33px;
-	width: 150px;
 	color: white;
     text-align: center;
     align-content:center;
@@ -107,8 +101,8 @@ button:hover
 
 #pname{
     position: absolute;
-    top:38%;
-    bottom:80%;
+    top:85vh;
+    bottom: 20vh;
     left: 40%;
     right: 40%;
     margin:auto;

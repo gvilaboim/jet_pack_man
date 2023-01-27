@@ -284,7 +284,7 @@ class Player extends Component {
                 }
 
                 this.fuel.color ="rgb(0, 255, 0)";
-                this.fuel.value =  this.fuel.value  -2;
+                this.fuel.value =  this.fuel.value  -0.5;
             }
             else if (this.fuel.value >= 50 && this.fuel.value <= 70) {
                 this.choose = 1;
@@ -295,7 +295,7 @@ class Player extends Component {
                 }
                 
             this.fuel.color = "rgb(100, 255, 0)";
-            this.fuel.value =  this.fuel.value  -2;
+            this.fuel.value =  this.fuel.value  -0.5;
         }
             else if(this.fuel.value > 0 && this.fuel.value <= 50)
             {
@@ -307,7 +307,7 @@ class Player extends Component {
                 }
                 
                 this.fuel.color = "rgb(255, 0, 0)";
-                this.fuel.value =  this.fuel.value  -2;
+                this.fuel.value =  this.fuel.value -0.5;
             }
         }
             if(this.fuel.value<=0)

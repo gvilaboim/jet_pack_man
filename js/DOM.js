@@ -3,7 +3,9 @@ let isStarted = false;
 let isPaused = false;
 window.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
-    mainMenu();
+    if(!isStarted){
+        mainMenu();
+    }
 });
 
 function mainMenu()
@@ -27,9 +29,7 @@ function mainMenu()
     ctx.textAlign = "center";
     ctx.fillStyle = "white";
     ctx.fillText("Jet Pack Man!", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 - 160);
-    ctx.font = "30px VT323";
-    ctx.fillText("Made by Gonçalo Vilaboim", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 - 120);
-
+   
     ctx.fillStyle = "white";
     ctx.font = "italic 13pt Courier";
     ctx.fillText('Press "Enter" to Start! ', myGameArea.canvas.width / 2, myGameArea.canvas.height / 2  -70);
@@ -41,6 +41,29 @@ function mainMenu()
     document.getElementById("pname").style.zIndex = "2";
     document.getElementById("main-menu").style.display ="inline";
     document.getElementById("main-menu").style.visibility = 'visible';
+    document.getElementById("shop").style.display = "none";
+    document.getElementById("shop").style.visibility = 'hidden';
+
+    let a = false;
+    setInterval( ()=> {
+        if(a && !isStarted)
+        {
+            ctx.fillStyle = "rgb(48, 46, 46)";
+            ctx.font = "30px VT323";
+            ctx.fillText("Made by Gonçalo Vilaboim", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 - 120);
+
+            a = false;
+        }
+        else if (!a && !isStarted){
+            ctx.fillStyle = "rgb(78, 76, 76)";
+            ctx.font = "30px VT323";
+            ctx.fillText("Made by Gonçalo Vilaboim", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 - 120);        
+            a= true;  
+
+        }
+    },1000);
+
+
 
 }
 function start() {
@@ -49,6 +72,7 @@ function start() {
     document.getElementById("main-menu").style.display = "none";
     document.getElementById("main-menu").style.visibility = 'hidden';
     document.getElementById("shop").style.display = "none";
+    document.getElementById("shop").style.visibility = 'hidden';
 
    // let username = prompt("Choose a name to Play Jet Pack Man!: ")
     let username = document.getElementById("pname").value
@@ -62,7 +86,7 @@ function start() {
     background.img.src ="./img/game_background_1.png";
 
     // Generate Pipes & Gallons
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 10; i++) {
         pipesDown.push(new Pipe(Pipe.distance * i , i * Pipe.height))
         myGameArea.gallons.push(new Gallon((Pipe.distance * i + Gallon.distance) , (i * Pipe.height ) +500))
     }
@@ -155,6 +179,52 @@ function upgradeGun()
     }
 }
 
+function pauseGame()
+{
+    myGameArea.isGamePaused = true;
+     
+   let ctx = myGameArea.context
+    ctx.fillStyle = 'rgb(48, 46, 46,0.5)';
+    ctx.fillRect(myGameArea.canvas.width / 2 -250, myGameArea.canvas.height / 2 -250,500,500);
+    ctx.font = "80px VT323";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "white";
+    ctx.fillText("Jet Pack Man!", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 - 160);
+    ctx.font = "30px VT323";
+    ctx.fillText("Made by Gonçalo Vilaboim", myGameArea.canvas.width / 2 , myGameArea.canvas.height / 2 - 120);
+    ctx.fillStyle = "white";
+    ctx.font = "italic 13pt Courier";
+    ctx.fillText('Press "Enter" to Start! ', myGameArea.canvas.width / 2, myGameArea.canvas.height / 2  -70);
+    ctx.fillText("Arrow Left -> Move Left " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 -20);
+    ctx.fillText("Arrow Right -> Move Right " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 +20);
+    ctx.fillText("Arrow Up -> Jump/Fly " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 60 );
+    ctx.fillText('Space Bar  -> Shoot ' , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 100 );
+    ctx.fillText("Esc -> Game Pause/Resume " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 140 );
+    ctx.font = "80px VT323";
+    ctx.textAlign = "center";
+    let a = false;
+    setInterval( ()=> {
+       
+        if(a && isPaused)
+        {
+            ctx.fillStyle = "gray";
+            ctx.fillText("Game Paused!" , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 +220 );
+            a = false;
+        }
+        else if (!a && isPaused){
+            ctx.fillStyle = "white";
+            ctx.fillText("Game Paused!" , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 +220 );
+            a= true;  
+
+        }
+    },1000);
+
+}
+function resumeGame()
+{
+    myGameArea.isGamePaused = false;
+
+}
 
 document.addEventListener('keydown', ({ key }) => {
 
@@ -183,7 +253,8 @@ document.addEventListener('keydown', ({ key }) => {
         case "Enter":
             let username = document.getElementById("pname").value
             const ctx = myGameArea.context;
-
+            ctx.fillStyle = "white";
+            ctx.font = "30px VT323";
             ctx.fillText("Please Enter a name to start playing " , myGameArea.canvas.width / 2, myGameArea.canvas.height / 2 + 175 );
 
             if(username == "")
@@ -205,26 +276,34 @@ document.addEventListener('keydown', ({ key }) => {
         case "s":
             if(myGameArea.isGameOver)
             {
+
                 document.getElementById("main-menu").style.display = "none";
                 document.getElementById("main-menu").style.visibility = 'hidden';
+                document.getElementById("shop").style.visibility = 'visible';
+                let s = document.getElementById("shop")
+                s.style.display="block"
+                s.style.zIndex = "1";
+
                // myGameArea.ctx.remove();
                const ctx = myGameArea.context;
                ctx.canvas.hidden = true;
-               let s = document.getElementById("shop")
                document.body.style.backgroundImage = `url('./img/game_background_1.png')`
                //console.log(player.playerName);
                var value = window.localStorage.getItem(player.playerName);
                let obj = JSON.parse(value);
                console.log(obj);
+            
+               player.jlevel = obj.jetpack;
+               player.hlevel = obj.healt; 
+               player.glevel =  obj.gun;
                document.getElementById("coins").innerText = "Coins: "+ obj.coins +"$" ;
                document.getElementById("jlevel").innerText = obj.jetpack ;
                document.getElementById("hlevel").innerText = obj.healt ;
                document.getElementById("glevel").innerText = obj.gun;
-               document.getElementById("upCostGun").innerText = `Upgrade ${player.gcost}$`;
-               document.getElementById("upCostHealth").innerText = `Upgrade ${player.hcost}$`;
-               document.getElementById("upCostJet").innerText = `Upgrade ${player.hcost}$`;
-               s.style.display="block"
-               s.style.zIndex = "1";
+               document.getElementById("upCostGun").innerText = `Upgrade ${25 * obj.gun }$`;
+               document.getElementById("upCostHealth").innerText = `Upgrade ${25  * obj.healt }$`;
+               document.getElementById("upCostJet").innerText = `Upgrade ${25 *obj.jetpack}$`;
+              
              /*  let obj2 = {
                 'name' : player.playerName,
                 'coins' : player.coins,

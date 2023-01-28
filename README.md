@@ -29,7 +29,7 @@ Basic Functionalities:
 
 
 ## Data structure
-- Classes:
+ Classes:
 - Player
 - Bullet
 - BulletController
@@ -37,7 +37,7 @@ Basic Functionalities:
 - Gallon
 - Monster
 - Pipe
-- Main methods:
+ Main methods:
 - DOM
 - Controller
 

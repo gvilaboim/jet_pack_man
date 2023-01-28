@@ -3,22 +3,22 @@
 [Click here to see deployed game](https://gvilaboim.github.io/jet_pack_man/)
 
 ## Description
-##############
+
 The gameplay is quite simple, the player just has to survive on the map, with his flying and shooting skills.
 - [Slides Link](https://docs.google.com/presentation/d/1031mMMCTqQSXALIgkRtkkSaG-SC6A9jG/edit?usp=sharing&ouid=106323460422668069641&rtpof=true&sd=true)
 
 ## MVP
-##############
+
 How to Win ?!
--Basically the game is record game. The objective is to see which player has the highest score.
+- Basically the game is record game. The objective is to see which player has the highest score.
 You'll just have to survive the map and try to escape from enemies.
 
-##############
+
 How to Lose ?!
--The Player will lose the game when he falls off the map or loses his life by being hit by enemy attacks.
+- The Player will lose the game when he falls off the map or loses his life by being hit by enemy attacks.
 
 ## Backlog
-##############
+
 Basic Functionalities:
 - “Arrow Left/Right” -> These two keys give the player the ability to move left and right.
 - “Arrow UP” -> This key gives the player the ability to jump, but if the player has fuel he can fly across the map.
